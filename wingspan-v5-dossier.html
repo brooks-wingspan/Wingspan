@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wingspan Aviation Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital@0;1&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#171A1D;
+  --navy:#0C3C60;
+  --paper:#F7F6F2;
+  --panel:#FFFFFF;
+  --line:rgba(23,26,29,.14);
+  --muted:#767c74;
+  --cerulean:#2596BE;
+  --glass:#EBFFF6;
+  --celadon:#8DC7C3;
+  --out:cubic-bezier(0,0,.2,1);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;font-weight:300;background:var(--paper);color:var(--ink);overflow-x:hidden;}
+.serif{font-family:'Libre Caslon Text',serif;}
+.mono{font-family:'Space Mono',monospace;}
+
+/* layout shell: side index rail + content */
+.shell{display:flex;min-height:100vh;}
+.rail{width:56px;flex-shrink:0;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:24px 0;position:sticky;top:0;height:100vh;}
+.rail-top,.rail-bottom{display:flex;flex-direction:column;align-items:center;gap:18px;}
+.rail-tab{writing-mode:vertical-rl;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.35);text-transform:uppercase;text-decoration:none;padding:10px 0;}
+.rail-tab:hover{color:var(--cerulean);}
+.rail-mark{width:8px;height:8px;background:var(--cerulean);border-radius:50%;}
+.rail-doc{writing-mode:vertical-rl;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;color:rgba(255,255,255,.25);text-transform:uppercase;}
+.main{flex:1;min-width:0;}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:26px 56px;background:var(--paper);border-bottom:1px solid var(--line);}
+.nav-logo{font-family:'Libre Caslon Text',serif;font-size:19px;color:var(--ink);}
+.nav-links{display:flex;align-items:center;gap:36px;}
+.nl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--muted);text-decoration:none;text-transform:uppercase;}
+.nl:hover{color:var(--ink);}
+.nav-cta{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:var(--ink);color:var(--paper);border:none;padding:11px 20px;cursor:pointer;}
+.nav-cta:hover{background:var(--navy);}
+
+/* AI PILL */
+.ai-pill{position:fixed;bottom:26px;right:26px;z-index:200;display:flex;align-items:center;gap:8px;background:var(--ink);padding:10px 16px;cursor:pointer;text-decoration:none;}
+.ai-pill-dot{width:5px;height:5px;background:var(--cerulean);animation:pulse 2.5s ease-in-out infinite;}
+.ai-pill-text{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.08em;color:#fff;text-transform:uppercase;}
+
+/* DOC HEADER */
+.doc-header{display:flex;justify-content:space-between;align-items:baseline;padding:16px 56px;border-bottom:1px solid var(--line);}
+.doc-header .mono{font-size:9px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
+.doc-header .acc{color:var(--cerulean);}
+
+/* HERO */
+.hero{position:relative;height:78vh;min-height:440px;background:var(--ink);overflow:hidden;}
+.hero-video-wrap{position:absolute;inset:0;z-index:0;}
+.hero-video-wrap video{width:100%;height:100%;object-fit:cover;}
+.hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(23,26,29,.35) 0%,rgba(23,26,29,.05) 45%,rgba(23,26,29,.65) 100%);}
+.hero-content{position:relative;z-index:2;height:100%;padding:56px;display:flex;flex-direction:column;justify-content:space-between;}
+.hero-top{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:rgba(255,255,255,.5);text-transform:uppercase;}
+.hero-h1{font-family:'Libre Caslon Text',serif;font-size:clamp(36px,5.4vw,68px);color:#fff;line-height:1.05;max-width:760px;}
+
+/* PRACTICE INDEX — replaces marquee: numbered briefing index */
+.practice-index{padding:36px 56px;border-bottom:1px solid var(--line);background:var(--panel);}
+.practice-index-inner{display:flex;flex-wrap:wrap;gap:0;}
+.practice-index-inner span{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;padding:6px 18px 6px 0;margin-right:18px;border-right:1px solid var(--line);}
+.practice-index-inner span:last-child{border-right:none;}
+
+/* VALUE */
+.value-section{display:grid;grid-template-columns:100px 1fr 1fr;background:var(--panel);border-bottom:1px solid var(--line);}
+.value-tab{padding:72px 0 0 24px;}
+.value-tab .mono{font-size:9px;color:var(--muted);}
+.value-left{padding:72px 40px 72px 0;border-right:1px solid var(--line);}
+.section-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:28px;}
+.value-h2{font-family:'Libre Caslon Text',serif;font-size:clamp(24px,2.8vw,36px);color:var(--ink);line-height:1.25;}
+.value-h2 em{font-style:italic;color:var(--navy);}
+.value-right{padding:72px 56px 72px 48px;display:flex;flex-direction:column;justify-content:center;}
+.value-right p{font-size:13.5px;color:#43484c;line-height:1.9;margin-bottom:18px;font-weight:300;}
+.value-right p.dim{color:var(--muted);font-size:12.5px;}
+
+/* SERVICES */
+.services-section{border-bottom:1px solid var(--line);}
+.services-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 56px;border-bottom:1px solid var(--line);background:var(--paper);}
+.bar-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
+.pillars{display:grid;grid-template-columns:1fr 1fr 1fr;}
+.pl{padding:44px 36px;background:var(--panel);border-right:1px solid var(--line);border-bottom:1px solid var(--line);cursor:pointer;display:flex;flex-direction:column;position:relative;}
+.pl:last-child{border-right:none;}
+.pl::before{content:attr(data-tab);position:absolute;top:0;left:0;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.06em;color:#fff;background:var(--cerulean);padding:4px 8px;opacity:0;transition:opacity .2s;}
+.pl:hover::before{opacity:1;}
+.pl:hover .pl-arrow{opacity:1;transform:translateX(4px);}
+.pl-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--muted);margin-bottom:20px;}
+.pl-title{font-family:'Libre Caslon Text',serif;font-size:19px;color:var(--ink);line-height:1.3;margin-bottom:14px;}
+.pl-desc{font-size:12px;color:var(--muted);line-height:1.85;margin-bottom:22px;font-weight:300;}
+.pl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:26px;}
+.tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.02em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);padding:4px 9px;}
+.pl-cta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;margin-top:auto;display:flex;align-items:center;gap:6px;}
+.pl-arrow{opacity:0;transition:opacity .2s,transform .25s var(--out);}
+
+/* TRANSITION */
+.transition-band{padding:24px 56px;background:var(--ink);display:flex;align-items:center;justify-content:space-between;}
+.band-eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--cerulean);text-transform:uppercase;margin-bottom:4px;}
+.band-title{font-family:'Libre Caslon Text',serif;font-size:17px;color:#fff;}
+.band-right{font-size:11px;font-weight:300;color:rgba(255,255,255,.4);max-width:280px;line-height:1.7;text-align:right;}
+
+/* AI SECTION — briefing terminal insert */
+.ai-full{background:#04100C;border-top:1px solid var(--celadon);border-bottom:1px solid var(--celadon);}
+.ai-classified{display:flex;justify-content:space-between;padding:10px 56px;border-bottom:1px solid rgba(141,199,195,.2);}
+.ai-classified span{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.12em;color:var(--celadon);text-transform:uppercase;opacity:.7;}
+.ai-inner{display:grid;grid-template-columns:1fr 1fr;}
+.ai-left{padding:48px 56px;border-right:1px solid rgba(141,199,195,.2);display:flex;flex-direction:column;}
+.ai-badge{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--celadon);margin-bottom:18px;}
+.ai-badge-dot{width:5px;height:5px;background:var(--celadon);animation:pulse 2.5s ease-in-out infinite;}
+.ai-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:rgba(37,150,190,.55);margin-bottom:14px;}
+.ai-header-main{font-family:'Space Mono',monospace;font-size:clamp(20px,2.4vw,28px);color:var(--glass);letter-spacing:.02em;margin-bottom:4px;}
+.ai-header-sub{font-family:'Space Mono',monospace;font-size:9px;color:var(--cerulean);letter-spacing:.14em;opacity:.75;margin-bottom:20px;text-transform:uppercase;}
+.ai-desc{font-family:'Space Mono',monospace;font-size:11px;font-weight:400;color:rgba(235,255,246,.6);line-height:1.9;margin-bottom:22px;}
+.ai-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:26px;}
+.ai-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.02em;text-transform:uppercase;color:var(--celadon);border:1px solid rgba(141,199,195,.3);padding:4px 9px;}
+.ai-cta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--cerulean);margin-top:auto;}
+.ai-right{padding:48px 56px;display:flex;flex-direction:column;justify-content:center;}
+.spec-header{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;color:rgba(37,150,190,.6);text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(141,199,195,.2);}
+.spec-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:11px;}
+.sk{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:.02em;color:var(--celadon);opacity:.85;}
+.sv{font-family:'Space Mono',monospace;font-size:8.5px;color:var(--glass);text-align:right;}
+.sv-c{font-family:'Space Mono',monospace;font-size:8.5px;color:var(--cerulean);text-align:right;}
+.spec-cursor{display:inline-block;width:5px;height:10px;background:var(--cerulean);opacity:.9;vertical-align:middle;margin-left:2px;animation:blink .8s step-end infinite;}
+.ai-bottom-band{height:2px;background:linear-gradient(90deg,var(--glass),var(--celadon),var(--cerulean));}
+
+/* TIMELINE */
+.timeline-section{padding:72px 56px;background:var(--panel);border-bottom:1px solid var(--line);}
+.tl-prose{font-family:'Libre Caslon Text',serif;font-size:clamp(16px,1.9vw,22px);color:var(--ink);line-height:1.75;max-width:900px;}
+.tl-prose sup{font-family:'Space Mono',monospace;font-size:8px;font-weight:400;color:var(--cerulean);vertical-align:super;margin-left:2px;}
+.tl-slash{font-family:'Inter',sans-serif;color:var(--line);margin:0 10px;}
+
+/* PROOF */
+.proof-section{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);background:var(--paper);}
+.proof-left{padding:72px 56px;border-right:1px solid var(--line);}
+.proof-quote{font-family:'Libre Caslon Text',serif;font-style:italic;font-size:clamp(15px,1.5vw,19px);color:var(--ink);line-height:1.7;margin-bottom:26px;padding-left:20px;border-left:2px solid var(--cerulean);}
+.proof-name{font-family:'Space Mono',monospace;font-size:10px;color:var(--ink);margin-bottom:3px;}
+.proof-co{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;}
+.proof-right{padding:72px 56px;display:flex;flex-direction:column;justify-content:center;}
+.proof-right h3{font-family:'Libre Caslon Text',serif;font-size:clamp(22px,2.4vw,30px);color:var(--ink);line-height:1.25;margin-bottom:16px;}
+.proof-right h3 em{font-style:italic;color:var(--navy);}
+.proof-right p{font-size:12.5px;color:var(--muted);line-height:1.9;margin-bottom:26px;font-weight:300;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.04em;color:var(--ink);text-transform:uppercase;border:1px solid var(--line);padding:6px 12px;}
+
+/* CTA / CONTACT */
+.cta-section{background:var(--ink);display:grid;grid-template-columns:1fr 1fr;}
+.cta-copy{padding:88px 56px;}
+.cta-copy .mono.tag-line{display:block;font-size:9px;letter-spacing:.14em;color:var(--cerulean);text-transform:uppercase;margin-bottom:22px;}
+.cta-copy h2{font-family:'Libre Caslon Text',serif;font-size:clamp(28px,3.6vw,44px);color:#fff;line-height:1.18;margin-bottom:20px;}
+.cta-copy h2 em{font-style:italic;color:rgba(255,255,255,.45);}
+.cta-copy p{font-size:12.5px;color:rgba(255,255,255,.4);margin-bottom:36px;line-height:1.9;font-weight:300;}
+.cta-row{display:flex;gap:12px;}
+.btn-w{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:#fff;color:var(--ink);border:none;padding:13px 24px;cursor:pointer;}
+.btn-w:hover{background:var(--cerulean);color:#fff;}
+.btn-o{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);padding:13px 24px;cursor:pointer;}
+.btn-o:hover{color:#fff;border-color:#fff;}
+.cta-video-wrap{position:relative;overflow:hidden;border-left:1px solid rgba(255,255,255,.1);}
+.cta-video-wrap video{width:100%;height:100%;object-fit:cover;opacity:.7;}
+.cta-video-tag{position:absolute;bottom:20px;left:20px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;color:rgba(255,255,255,.6);text-transform:uppercase;}
+
+/* FOOTER */
+footer{background:var(--ink);padding:20px 56px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;}
+.fc{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.3);}
+.fl{display:flex;gap:22px;}
+.flink{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.3);}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s var(--out),transform .7s var(--out);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}
+
+@media(max-width:900px){
+  .rail{display:none;}
+  .value-section{grid-template-columns:1fr;}
+  .value-tab{display:none;}
+  .value-left{border-right:none;border-bottom:1px solid var(--line);}
+  .pillars,.proof-section,.cta-section{grid-template-columns:1fr;}
+  .pl{border-right:none;}
+  .proof-left{border-right:none;border-bottom:1px solid var(--line);}
+  nav{padding:18px 20px;}
+  .nl{display:none;}
+  .ai-inner{grid-template-columns:1fr;}
+  .ai-left{border-right:none;border-bottom:1px solid rgba(141,199,195,.2);}
+}
+</style>
+</head>
+<body>
+
+<a class="ai-pill" href="#ai-section">
+  <span class="ai-pill-dot"></span>
+  <span class="ai-pill-text">AI Transformation</span>
+</a>
+
+<div class="shell">
+  <div class="rail">
+    <div class="rail-top">
+      <span class="rail-mark"></span>
+      <a href="#services" class="rail-tab">Services</a>
+      <a href="#ai-section" class="rail-tab">AI</a>
+    </div>
+    <div class="rail-bottom">
+      <span class="rail-doc">Doc 01 / 2026</span>
+    </div>
+  </div>
+  <div class="main">
+
+    <nav>
+      <div class="nav-logo">Wingspan</div>
+      <div class="nav-links">
+        <a href="#services" class="nl">Services</a>
+        <a href="#" class="nl">B2B</a>
+        <a href="#" class="nl">Private Aviation</a>
+        <a href="#" class="nl">The Team</a>
+        <button class="nav-cta" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">Let's Talk</button>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-video-wrap">
+        <video autoplay muted loop playsinline>
+          <source src="clouds.mov">
+        </video>
+      </div>
+      <div class="hero-scrim"></div>
+      <div class="hero-content">
+        <div class="hero-top">
+          <span>Wingspan Aviation Consulting</span>
+          <span>Briefing — Homepage</span>
+        </div>
+        <h1 class="hero-h1">Extend Your Reach</h1>
+      </div>
+    </section>
+
+    <div class="practice-index">
+      <div class="practice-index-inner">
+        <span>Market Intelligence</span>
+        <span>Voice of Customer</span>
+        <span>Sales Infrastructure</span>
+        <span>AI Transformation</span>
+        <span>Paid Advertising</span>
+        <span>Private Aviation Concierge</span>
+        <span>Charter Advisory</span>
+        <span>Aircraft Acquisition</span>
+      </div>
+    </div>
+
+    <section class="value-section reveal">
+      <div class="value-tab"><span class="mono">01</span></div>
+      <div class="value-left">
+        <div class="section-label">Our unique value add</div>
+        <div class="value-h2">Big-tech marketing practices. <em>Built for aviation.</em></div>
+      </div>
+      <div class="value-right">
+        <p>The most sophisticated companies in the world — Google, Salesforce, HubSpot — run marketing on a foundation of customer intelligence programs, predictive lead scoring, always-on paid media, and AI-driven sales systems. Aviation businesses have the same needs. Until now, they have had no partner who understood both sides well enough to build it for them.</p>
+        <p class="dim">Wingspan closes that gap. We bring the practices, tools, and strategic rigor of the most advanced marketing operations in the world, deployed inside the relationship-driven, nuance-heavy reality of aviation — where knowing the difference between an AOG call and a routine inspection is the baseline, not the differentiator.</p>
+      </div>
+    </section>
+
+    <section class="services-section" id="services">
+      <div class="services-bar reveal">
+        <span class="bar-label">Services</span>
+        <span class="bar-label">03 Practices + AI</span>
+      </div>
+      <div class="pillars">
+        <div class="pl reveal" data-tab="Tab A">
+          <div class="pl-num">01</div>
+          <div class="pl-title">Market Intelligence &amp; Voice of Customer</div>
+          <p class="pl-desc">Know what your customers actually think — not what you assume. Research built on aviation relationships and structured methodology.</p>
+          <div class="pl-tags">
+            <span class="tag">VoC Research</span>
+            <span class="tag">Journey Mapping</span>
+            <span class="tag">Competitive Intel</span>
+          </div>
+          <div class="pl-cta">Explore <span class="pl-arrow">→</span></div>
+        </div>
+        <div class="pl reveal d1" data-tab="Tab B">
+          <div class="pl-num">02</div>
+          <div class="pl-title">Sales &amp; Marketing Infrastructure</div>
+          <p class="pl-desc">The systems that turn interest into revenue. CRM architecture, lead scoring, playbooks, and paid advertising as a core growth engine.</p>
+          <div class="pl-tags">
+            <span class="tag">CRM Design</span>
+            <span class="tag">Lead Scoring</span>
+            <span class="tag">Paid Media</span>
+          </div>
+          <div class="pl-cta">Explore <span class="pl-arrow">→</span></div>
+        </div>
+        <div class="pl reveal d2" data-tab="Tab C">
+          <div class="pl-num">03</div>
+          <div class="pl-title">Paid Advertising</div>
+          <p class="pl-desc">Command the airspace. Reach the right aviation buyers before your competition — on every channel that matters.</p>
+          <div class="pl-tags">
+            <span class="tag">Google Ads</span>
+            <span class="tag">LinkedIn</span>
+            <span class="tag">Geofencing</span>
+            <span class="tag">Meta</span>
+          </div>
+          <div class="pl-cta">Explore <span class="pl-arrow">→</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="transition-band reveal">
+      <div>
+        <div class="band-eyebrow">// entering</div>
+        <div class="band-title">AI Transformation</div>
+      </div>
+      <div class="band-right">The fastest-moving practice we offer, and often the one with the quickest return.</div>
+    </div>
+
+    <div class="ai-full reveal" id="ai-section">
+      <div class="ai-classified"><span>Section 04</span><span>Restricted Distribution</span></div>
+      <div class="ai-inner">
+        <div class="ai-left">
+          <div class="ai-badge"><span class="ai-badge-dot"></span>High Impact</div>
+          <div class="ai-num">04</div>
+          <div class="ai-header-main">AI</div>
+          <div class="ai-header-sub">Transformation of Marketing &amp; Sales</div>
+          <p class="ai-desc">AI is changing how aviation marketing and sales teams operate. We build predictive, automated systems into the tools your team already runs.</p>
+          <div class="ai-tags">
+            <span class="ai-tag">Predictive Scoring</span>
+            <span class="ai-tag">Automation</span>
+            <span class="ai-tag">Sales Intelligence</span>
+            <span class="ai-tag">Content at Scale</span>
+          </div>
+          <div class="ai-cta">Explore this practice →</div>
+        </div>
+        <div class="ai-right">
+          <div class="spec-header">// WINGSPAN_AI_TRANSFORMATION.sys</div>
+          <div class="spec-row"><span class="sk">SERVICE</span><span class="sv">AI Transformation · Mktg &amp; Sales</span></div>
+          <div class="spec-row"><span class="sk">IMPACT_CLASS</span><span class="sv-c">HIGH</span></div>
+          <div class="spec-row"><span class="sk">SECTOR</span><span class="sv">Aviation · Part 135 · MRO · FBO</span></div>
+          <div class="spec-row"><span class="sk">LEAD_SCORE_SYS</span><span class="sv">Predictive · ML-trained</span></div>
+          <div class="spec-row"><span class="sk">AUTOMATION</span><span class="sv">Outreach · Nurture · Re-engage</span></div>
+          <div class="spec-row"><span class="sk">SALES_INTEL</span><span class="sv">Real-time · Competitor signals</span></div>
+          <div class="spec-row"><span class="sk">CONTENT_SYS</span><span class="sv">AI-generated · Brand-calibrated</span></div>
+          <div class="spec-row"><span class="sk">CRM_LAYER</span><span class="sv">Intelligence overlay · Next-best-action</span></div>
+          <div class="spec-row"><span class="sk">DEPLOYMENT</span><span class="sv">6–8 wks · Retainer available</span></div>
+          <div class="spec-row"><span class="sk">STATUS</span><span class="sv-c">ACCEPTING NEW CLIENTS<span class="spec-cursor"></span></span></div>
+        </div>
+      </div>
+      <div class="ai-bottom-band"></div>
+    </div>
+
+    <section class="timeline-section reveal">
+      <div class="section-label" style="margin-bottom:32px;">Experience</div>
+      <div class="tl-prose">
+        Luxury hospitality at Aman Resorts — learning HNW customers at the highest level<sup>2016</sup>
+        <span class="tl-slash">/</span>
+        Volato — building jet card sales infrastructure at a Part 135 operator<sup>2019</sup>
+        <span class="tl-slash">/</span>
+        Jet Aviation — enterprise marketing across MRO, completions, and FBO globally<sup>2022</sup>
+        <span class="tl-slash">/</span>
+        Admiral Technologies — go-to-market strategy for aviation technology<sup>2023</sup>
+        <span class="tl-slash">/</span>
+        Wingspan founded<sup>2024</sup>
+      </div>
+    </section>
+
+    <section class="proof-section">
+      <div class="proof-left reveal">
+        <p class="proof-quote">"His extensive network and Sales &amp; Marketing expertise are instrumental in helping us better understand our customers and refine our go-to-market strategy. Brooks engages effectively with industry professionals, securing valuable connections and delivering insightful market research."</p>
+        <div class="proof-name">Sam Fishman</div>
+        <div class="proof-co">AMS Aircraft Recovery</div>
+      </div>
+      <div class="proof-right reveal d2">
+        <h3>Ready to fly<br><em>at altitude?</em></h3>
+        <p>Whether you are an MRO growing B2B pipeline, a charter brand scaling card sales, or a private aviator who needs a trusted advisor — Wingspan was built for this.</p>
+        <div class="chips">
+          <span class="chip">AMS Aircraft Recovery</span>
+          <span class="chip">Admiral Technologies</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section reveal">
+      <div class="cta-copy">
+        <span class="mono tag-line">// Get in touch</span>
+        <h2>Let's close the gap.<br><em>Start the conversation.</em></h2>
+        <p>Hourly, project, and retainer formats. B2B aviation and private aviation concierge.</p>
+        <div class="cta-row">
+          <button class="btn-w">Get in Touch</button>
+          <button class="btn-o">View Case Studies</button>
+        </div>
+      </div>
+      <div class="cta-video-wrap">
+        <video autoplay muted loop playsinline>
+          <source src="field-web.mp4">
+        </video>
+        <div class="cta-video-tag">Exhibit B</div>
+      </div>
+    </section>
+
+    <footer>
+      <span class="fc">© 2026 Wingspan Aviation Consulting</span>
+      <div class="fl">
+        <span class="flink">San Diego, CA</span>
+        <span class="flink">brooks@yourwingspan.com</span>
+        <span class="flink">+1 (307) 247-5559</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  }), {threshold:.06});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

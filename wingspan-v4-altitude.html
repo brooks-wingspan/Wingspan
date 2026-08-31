@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wingspan Aviation Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500&family=IBM+Plex+Sans:wght@200;300;400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tweak-bar.css">
+<link rel="stylesheet" href="copy-brief.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#101418;
+  --white:#FFFFFF;
+  --line:rgba(16,20,24,.09);
+  --muted:#9096A0;
+  --fill:#E7E7E4;
+  --cerulean:#2596BE;
+  --glass:#EBFFF6;
+  --celadon:#8DC7C3;
+  --out:cubic-bezier(.16,1,.3,1);
+  /* tweak-bar controlled: AI section above stays on the locked vars, never these */
+  --tb-font-heading:'IBM Plex Sans', sans-serif;
+  --tb-font-body:'IBM Plex Sans', sans-serif;
+  --tb-heading-scale:1.1;
+  --tb-body-scale:1.1;
+  --tb-ls:0.005em;
+  --tb-lh:1.05;
+  --tb-heading-weight:200;
+  --tb-bg-primary:#FFFFFF;
+  --tb-bg-alt:#F5F5F5;
+  --tb-heading-color:#14181C;
+  --tb-body-color:#383C42;
+  --tb-accent:#2596BE;
+  --tb-nav-bg:rgba(255,255,255,.9);
+  --tb-pad-scale:1.35;
+  --tb-radius:8px;
+  --tb-divider-w:1px;
+  --tb-divider-s:solid;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Archivo',sans-serif;font-weight:200;background:var(--tb-bg-primary);color:var(--ink);overflow-x:hidden;}
+.mono{font-family:'Space Mono',monospace;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:36px 64px;background:var(--tb-nav-bg);backdrop-filter:blur(6px);}
+.nav-wordmark{font-family:var(--tb-font-heading);font-size:14px;font-weight:400;letter-spacing:.005em;color:var(--ink);text-decoration:none;}
+.nav-wordmark strong{font-weight:600;}
+.nav-links{display:flex;align-items:center;gap:48px;}
+.nl{font-size:12px;color:var(--muted);text-decoration:none;font-weight:300;}
+.nl:hover{color:var(--ink);}
+.nav-dropdown{position:relative;}
+.nav-dropdown-menu{position:absolute;top:100%;left:50%;transform:translate(-50%,4px);margin-top:20px;background:#fff;border:var(--tb-divider-w) var(--tb-divider-s) var(--line);min-width:260px;opacity:0;visibility:hidden;transition:opacity .2s var(--out),transform .2s var(--out),visibility .2s;box-shadow:0 16px 40px rgba(16,20,24,.1);}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;visibility:visible;transform:translate(-50%,0);}
+.nav-dropdown-menu a{display:block;padding:16px 22px;font-size:12px;color:var(--ink);text-decoration:none;border-bottom:var(--tb-divider-w) var(--tb-divider-s) var(--line);font-weight:300;}
+.nav-dropdown-menu a:last-child{border-bottom:none;}
+.nav-dropdown-menu a:hover{background:#FAFAF9;color:var(--ink);}
+.nav-dropdown-menu a[href="ai-transformation.html"]:hover{color:var(--cerulean);}
+.nav-cta{font-family:'Archivo',sans-serif;font-size:12px;font-weight:400;background:none;color:var(--ink);border:1px solid var(--ink);padding:9px 20px;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap;}
+.nav-cta:hover{background:var(--ink);color:#fff;}
+
+/* AI PILL */
+.ai-pill{position:fixed;bottom:32px;right:32px;z-index:200;display:flex;align-items:center;gap:9px;background:var(--ink);padding:11px 18px;border-radius:4px;cursor:pointer;text-decoration:none;}
+.ai-pill-dot{width:5px;height:5px;border-radius:50%;background:var(--tb-accent);animation:pulse 2.5s ease-in-out infinite;}
+.ai-pill-text{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;color:#fff;text-transform:uppercase;}
+
+/* HERO: huge, spare */
+.hero{position:relative;min-height:96vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 64px calc(var(--tb-pad-scale) * 100px + 70px);overflow:hidden;}
+.hero-video-wrap{position:absolute;inset:0;z-index:0;opacity:.94;}
+.hero-video-wrap video{width:100%;height:100%;object-fit:cover;}
+.hero-fade-overlay{position:absolute;inset:0;z-index:1;background:#fff;opacity:0;pointer-events:none;transition:opacity .25s linear;}
+.hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.05) 30%,#fff 100%);}
+.hero-content{position:relative;z-index:2;}
+.hero-h1{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * clamp(52px,9vw,150px));font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);line-height:calc(.92 * var(--tb-lh));letter-spacing:calc(-.03em + var(--tb-ls));}
+
+/* PRACTICE LIST: replaces marquee, static vertical breathing list */
+.practice-strip{padding:56px 64px;border-top:var(--tb-divider-w) var(--tb-divider-s) var(--line);border-bottom:var(--tb-divider-w) var(--tb-divider-s) var(--line);}
+.practice-strip-inner{display:flex;flex-wrap:wrap;gap:14px 40px;}
+.practice-strip span{font-size:12px;color:var(--muted);font-weight:300;position:relative;padding-left:16px;}
+.practice-strip span::before{content:'';position:absolute;left:0;top:50%;width:6px;height:1px;background:var(--muted);}
+.practice-strip span.acc::before{background:var(--tb-accent);}
+.practice-strip span.acc{color:var(--tb-accent);}
+
+/* VALUE: huge single column */
+.value-section{padding:calc(var(--tb-pad-scale) * 120px) 64px;max-width:1100px;}
+.section-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:48px;}
+.value-h2{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * clamp(32px,5vw,64px));font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);line-height:calc(1.08 * var(--tb-lh));letter-spacing:calc(-.02em + var(--tb-ls));margin-bottom:64px;}
+.value-h2 em{font-style:normal;color:var(--muted);}
+.value-right{max-width:640px;}
+.value-right p{font-family:var(--tb-font-body);font-size:calc(var(--tb-body-scale) * 16px);color:var(--tb-body-color);line-height:calc(1.85 * var(--tb-lh));margin-bottom:24px;font-weight:300;letter-spacing:var(--tb-ls);}
+.value-right p.dim{color:var(--muted);font-size:14px;}
+
+/* SERVICES: stacked full-width rows */
+.services-section{border-top:var(--tb-divider-w) var(--tb-divider-s) var(--line);background:var(--tb-bg-alt);}
+.services-bar{display:flex;align-items:center;justify-content:space-between;padding:calc(var(--tb-pad-scale) * 22px) 64px;}
+.bar-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;}
+.pillars{display:block;}
+.pl{display:grid;grid-template-columns:120px 1fr 1fr;gap:40px;align-items:center;padding:52px 64px;border-top:var(--tb-divider-w) var(--tb-divider-s) var(--line);cursor:pointer;transition:padding-left .35s var(--out);text-decoration:none;color:inherit;}
+.pl:last-child{border-bottom:var(--tb-divider-w) var(--tb-divider-s) var(--line);}
+.pl:hover{padding-left:80px;}
+.pl:hover .pl-cta{background:var(--tb-heading-color);color:#fff;}
+.pl:hover .pl-arrow{transform:translateX(4px);}
+.pl-num{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);}
+.pl-title{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * 26px);font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);line-height:calc(1.2 * var(--tb-lh));letter-spacing:calc(-.01em + var(--tb-ls));}
+.pl-desc{font-family:var(--tb-font-body);font-size:calc(var(--tb-body-scale) * 13.5px);color:var(--tb-body-color);line-height:calc(1.85 * var(--tb-lh));font-weight:300;margin-bottom:16px;letter-spacing:var(--tb-ls);}
+.pl-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.tag{font-size:10.5px;color:var(--tb-heading-color);font-weight:400;border:1px solid var(--line);border-radius:4px;padding:5px 10px;}
+.pl-cta{font-family:var(--tb-font-body);font-size:12px;font-weight:500;letter-spacing:.01em;color:var(--tb-heading-color);display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding:11px 18px;border:1px solid var(--tb-heading-color);border-radius:4px;width:fit-content;transition:background .2s,color .2s;}
+.pl-arrow{transition:transform .3s var(--out);}
+
+/* TRANSITION */
+/* TRANSITION, Tinted Atmosphere: canvas shifts from white into the brand's pale mint (glass) rather than gray */
+.transition-band{position:relative;padding:calc(var(--tb-pad-scale) * 90px) 64px calc(var(--tb-pad-scale) * 80px);display:flex;flex-direction:column;gap:14px;background:linear-gradient(180deg, var(--tb-bg-primary) 0%, #F8F9FA 30%, var(--glass) 100%);overflow:hidden;}
+.band-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--tb-accent);text-transform:uppercase;position:relative;z-index:1;}
+.band-title{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * clamp(28px,4vw,48px));font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);letter-spacing:calc(-.02em + var(--tb-ls));line-height:calc(1.2 * var(--tb-lh));position:relative;z-index:1;}
+.band-right{font-size:14px;font-weight:300;color:var(--muted);max-width:520px;line-height:1.8;position:relative;z-index:1;}
+.band-glow{position:absolute;left:50%;bottom:-40%;transform:translateX(-50%);width:140%;height:220px;background:radial-gradient(ellipse at center, rgba(141,199,195,.35) 0%, rgba(141,199,195,0) 70%);pointer-events:none;}
+
+/* AI SECTION: a stable, uniform mint canvas (no internal white restart); ambient glows carry the depth so the page reads as one clean white→mint→white arc, not a repeated transition. */
+.ai-full{position:relative;background:var(--glass);overflow:hidden;}
+.ai-full::before{content:'';position:absolute;top:-10%;left:30%;width:90%;height:340px;background:radial-gradient(ellipse at center, rgba(141,199,195,.4) 0%, rgba(141,199,195,0) 70%);pointer-events:none;z-index:0;animation:ai-drift-a 22s ease-in-out infinite;}
+.ai-full::after{content:'';position:absolute;bottom:-20%;left:-15%;width:70%;height:380px;background:radial-gradient(ellipse at center, rgba(37,150,190,.14) 0%, rgba(37,150,190,0) 72%);pointer-events:none;z-index:0;animation:ai-drift-b 26s ease-in-out infinite;}
+@keyframes ai-drift-a{0%,100%{opacity:.75;transform:translate(0,0) scale(1);}50%{opacity:1;transform:translate(-3%,2%) scale(1.08);}}
+@keyframes ai-drift-b{0%,100%{opacity:.7;transform:translate(0,0) scale(1);}50%{opacity:1;transform:translate(3%,-2%) scale(1.1);}}
+@media(prefers-reduced-motion:reduce){.ai-full::before,.ai-full::after{animation:none;}}
+.transition-exit{height:calc(var(--tb-pad-scale) * 70px);background:linear-gradient(180deg, var(--glass) 0%, #F8F9FA 55%, var(--tb-bg-primary) 100%);}
+.ai-inner{display:grid;grid-template-columns:1fr 1fr;max-width:1400px;margin:0 auto;position:relative;z-index:1;}
+.ai-left{padding:80px 64px;display:flex;flex-direction:column;}
+.ai-badge{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--cerulean);margin-bottom:28px;}
+.ai-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--cerulean);animation:pulse 2.5s ease-in-out infinite;}
+.ai-num{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(37,150,190,.55);margin-bottom:20px;}
+.ai-header-main{font-family:'Space Mono',monospace;font-size:clamp(30px,4vw,56px);color:var(--cerulean);letter-spacing:0;line-height:1;margin-bottom:8px;}
+.ai-header-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--tb-heading-color);letter-spacing:.18em;opacity:.75;margin-bottom:32px;text-transform:uppercase;}
+.ai-desc{font-family:'Space Mono',monospace;font-size:12.5px;font-weight:400;color:var(--tb-body-color);line-height:2;margin-bottom:32px;max-width:420px;opacity:.85;}
+.ai-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px;}
+.ai-tag{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--tb-heading-color);background:rgba(255,255,255,.6);border:1px solid rgba(141,199,195,.5);padding:5px 11px;}
+.ai-cta{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--cerulean);margin-top:auto;}
+.ai-right{padding:80px 64px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(141,199,195,.4);background:#FFFFFF;}
+.spec-header{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:.12em;color:rgba(37,150,190,.75);text-transform:uppercase;margin-bottom:22px;padding-bottom:12px;border-bottom:1px solid rgba(141,199,195,.35);}
+.spec-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:15px;}
+.sk{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.02em;color:var(--muted);}
+.sv{font-family:'Space Mono',monospace;font-size:9px;color:var(--tb-heading-color);text-align:right;}
+.sv-c{font-family:'Space Mono',monospace;font-size:9px;color:var(--cerulean);text-align:right;}
+.spec-cursor{display:inline-block;width:5px;height:11px;background:var(--cerulean);opacity:.9;vertical-align:middle;margin-left:2px;animation:blink .8s step-end infinite;}
+
+/* TIMELINE */
+.timeline-section{padding:calc(var(--tb-pad-scale) * 140px) 64px;max-width:1200px;margin:0 auto;text-align:left;}
+.tl-prose{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * clamp(18px,2.4vw,30px));font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);line-height:calc(1.75 * var(--tb-lh));letter-spacing:var(--tb-ls);}
+.tl-prose sup{font-family:'Space Mono',monospace;font-size:9px;font-weight:400;color:var(--muted);vertical-align:super;margin-left:2px;}
+.tl-slash{color:var(--line);margin:0 14px;}
+.milestone-close{margin-top:56px;font-family:var(--tb-font-heading);font-size:clamp(20px,2.4vw,28px);font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);line-height:1.5;max-width:820px;letter-spacing:var(--tb-ls);}
+
+/* TEAM: modular bordered grid, matching the v4c-modular variant's card structure */
+.team-section{padding:calc(var(--tb-pad-scale) * 140px) 64px calc(var(--tb-pad-scale) * 180px);background:var(--tb-bg-alt);}
+.team-grid{display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:72px;border-top:var(--tb-divider-w) var(--tb-divider-s) var(--line);border-left:var(--tb-divider-w) var(--tb-divider-s) var(--line);}
+.team-card{padding:40px;border-right:var(--tb-divider-w) var(--tb-divider-s) var(--line);border-bottom:var(--tb-divider-w) var(--tb-divider-s) var(--line);}
+.team-photo-wrap{position:relative;width:100%;margin-bottom:24px;overflow:hidden;border-radius:4px;cursor:default;}
+.team-photo{width:100%;aspect-ratio:1/1;background:var(--fill);display:block;object-fit:cover;object-position:center top;}
+.team-photo-overlay{position:absolute;inset:0;background:rgba(16,20,24,.92);opacity:0;transition:opacity .3s var(--out);display:flex;align-items:flex-start;padding:30px;}
+.team-photo-overlay p{font-family:var(--tb-font-body);font-size:14.5px;color:rgba(255,255,255,.92);line-height:1.8;font-weight:300;}
+.team-name{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * 27px);font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);margin-bottom:6px;letter-spacing:calc(-.01em + var(--tb-ls));}
+.team-title{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:18px;}
+.team-bio{font-family:var(--tb-font-body);font-size:calc(var(--tb-body-scale) * 15.5px);color:var(--muted);line-height:calc(1.75 * var(--tb-lh));font-weight:300;margin-bottom:16px;letter-spacing:var(--tb-ls);}
+.team-credential{font-size:11px;color:var(--ink);font-weight:400;padding-top:14px;border-top:var(--tb-divider-w) var(--tb-divider-s) var(--line);}
+
+/* CLIENT GRID: full bleed, gapless, UP.Partners style */
+.clients-section{border-top:var(--tb-divider-w) var(--tb-divider-s) var(--line);}
+.clients-bar{padding:calc(var(--tb-pad-scale) * 90px) 64px calc(var(--tb-pad-scale) * 44px);}
+.clients-bar .section-label{margin-bottom:20px;}
+.client-grid{display:grid;grid-template-columns:1fr 1fr 1fr;}
+.client-card{position:relative;aspect-ratio:1/1;background:var(--fill);overflow:hidden;cursor:default;border-radius:0;transition:aspect-ratio .4s var(--out),height .4s var(--out);}
+.client-card:hover,.client-card:focus{aspect-ratio:auto;height:420px;}
+.client-card:focus{outline:2px solid var(--ink);outline-offset:-2px;}
+.client-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .5s var(--out);}
+.client-card:hover .client-img,.client-card:focus .client-img{transform:scale(1.04);}
+.client-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,20,24,0) 45%,rgba(16,20,24,.82) 100%);transition:background .4s var(--out);z-index:1;}
+.client-card:hover .client-scrim,.client-card:focus .client-scrim{background:rgba(16,20,24,.88);}
+.client-info{position:absolute;left:28px;right:28px;bottom:26px;z-index:2;}
+.client-name{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * 17px);font-weight:var(--tb-heading-weight);color:#fff;margin-bottom:4px;}
+.client-cat{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.client-desc{font-family:var(--tb-font-body);font-size:calc(var(--tb-body-scale) * 12px);color:rgba(255,255,255,.75);line-height:calc(1.7 * var(--tb-lh));font-weight:300;max-height:0;opacity:0;overflow:hidden;transition:max-height .4s var(--out),opacity .3s var(--out),margin-bottom .4s var(--out);margin-bottom:0;}
+.client-card:hover .client-desc,.client-card:focus .client-desc{max-height:280px;opacity:1;margin-bottom:12px;}
+
+/* PROOF */
+.proof-section{padding:calc(var(--tb-pad-scale) * 140px) 64px calc(var(--tb-pad-scale) * 160px);display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+.proof-quote{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * clamp(17px,1.8vw,24px));font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);line-height:calc(1.6 * var(--tb-lh));margin-bottom:32px;letter-spacing:var(--tb-ls);}
+.proof-name{font-size:13px;color:var(--ink);font-weight:400;margin-bottom:4px;}
+.proof-co{font-size:11px;color:var(--muted);font-weight:300;}
+.proof-right h3{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * clamp(26px,3vw,40px));font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);line-height:calc(1.15 * var(--tb-lh));margin-bottom:20px;letter-spacing:calc(-.02em + var(--tb-ls));}
+.proof-right h3 em{font-style:normal;color:var(--muted);}
+.proof-right p{font-family:var(--tb-font-body);font-size:calc(var(--tb-body-scale) * 14px);color:var(--muted);line-height:calc(1.9 * var(--tb-lh));margin-bottom:28px;font-weight:300;letter-spacing:var(--tb-ls);}
+.chips{display:flex;flex-wrap:wrap;gap:10px;}
+.chip{font-size:10px;color:var(--muted);font-weight:300;border:var(--tb-divider-w) var(--tb-divider-s) var(--line);padding:8px 16px;border-radius:100px;}
+
+/* CTA / CONTACT */
+.cta-section{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;background:var(--ink);}
+.cta-video-wrap{position:absolute;inset:0;z-index:0;}
+.cta-video-wrap video{width:100%;height:100%;object-fit:cover;}
+.cta-section::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:
+  linear-gradient(100deg, rgba(16,20,24,.85) 0%, rgba(16,20,24,.62) 28%, rgba(16,20,24,.22) 52%, rgba(16,20,24,0) 72%),
+  linear-gradient(180deg, rgba(16,20,24,.4) 0%, rgba(16,20,24,0) 24%, rgba(16,20,24,0) 76%, rgba(16,20,24,.5) 100%);
+}
+.cta-copy{position:relative;z-index:2;padding:0 64px;max-width:900px;}
+.cta-copy h2{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * clamp(38px,6.5vw,84px));font-weight:var(--tb-heading-weight);color:#fff;line-height:calc(1.02 * var(--tb-lh));letter-spacing:calc(-.02em + var(--tb-ls));margin-bottom:32px;}
+.cta-copy h2 em{font-style:normal;color:rgba(255,255,255,.4);}
+.cta-copy p{font-family:var(--tb-font-body);font-size:calc(var(--tb-body-scale) * 14px);color:rgba(255,255,255,.4);margin-bottom:48px;line-height:calc(1.9 * var(--tb-lh));font-weight:300;max-width:480px;letter-spacing:var(--tb-ls);}
+.cta-row{display:flex;gap:14px;}
+.btn-w{font-family:'Archivo',sans-serif;font-size:13px;font-weight:400;background:#fff;color:var(--ink);border:none;padding:16px 32px;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block;}
+.btn-w:hover{background:var(--ink);color:#fff;}
+.btn-o{font-family:'Archivo',sans-serif;font-size:13px;font-weight:300;background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.25);padding:16px 32px;border-radius:4px;cursor:pointer;}
+.btn-o:hover{color:#fff;border-color:#fff;}
+
+/* FOOTER */
+footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:space-between;}
+.fc{font-size:11px;color:var(--muted);font-weight:300;}
+.fl{display:flex;gap:32px;}
+.flink{font-size:11px;color:var(--muted);font-weight:300;}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 1s var(--out),transform 1s var(--out);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}
+
+@media(max-width:900px){
+  .pl,.proof-section,.team-grid,.client-grid{grid-template-columns:1fr;gap:20px;}
+  .client-grid{gap:1px;}
+  nav{padding:24px 24px;}
+  .nl{display:none;}
+  .hero{padding:0 24px 60px;}
+  .value-section,.timeline-section,.cta-copy,.services-bar,.transition-band,.practice-strip,.team-section,.clients-bar{padding-left:24px;padding-right:24px;}
+  .ai-inner{grid-template-columns:1fr;}
+  .ai-right{border-left:none;border-top:1px solid rgba(141,199,195,.15);}
+  .hero{padding-bottom:calc(var(--tb-pad-scale) * 90px + 130px);}
+  .ai-pill{bottom:100px;left:20px;right:auto;}
+  .team-grid{gap:0;}
+  .team-card{border-right:none;}
+}
+</style>
+</head>
+<body>
+
+<a class="ai-pill" href="#ai-section">
+  <span class="ai-pill-dot"></span>
+  <span class="ai-pill-text">AI Transformation</span>
+</a>
+
+<nav>
+  <a href="wingspan-v4-altitude.html" class="nav-wordmark"><strong>Wingspan</strong> Aviation Consulting</a>
+  <div class="nav-links">
+    <div class="nav-dropdown">
+      <a href="#services" class="nl">Services</a>
+      <div class="nav-dropdown-menu">
+        <a href="market-intelligence.html">Market Intelligence &amp; Voice of Customer</a>
+        <a href="sales-marketing-infrastructure.html">Marketing &amp; Sales Infrastructure</a>
+        <a href="paid-advertising.html">Paid Advertising</a>
+        <a href="ai-transformation.html">AI Transformation</a>
+      </div>
+    </div>
+    <a href="#team" class="nl">The Team</a>
+    <a href="contact.html" class="nav-cta">Let's Talk</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-video-wrap">
+    <video id="hero-video" autoplay muted playsinline>
+      <source src="clouds.mov">
+    </video>
+    <div class="hero-fade-overlay" id="hero-fade-overlay"></div>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <h1 class="hero-h1">Extend<br>your reach</h1>
+  </div>
+</section>
+
+<div class="practice-strip">
+  <div class="practice-strip-inner">
+    <span>Market Intelligence</span>
+    <span>Voice of Customer</span>
+    <span>Sales Infrastructure</span>
+    <span>Paid Advertising</span>
+    <span>Charter Advisory</span>
+    <span>Aircraft Acquisition</span>
+    <span class="acc">AI Transformation</span>
+  </div>
+</div>
+
+<section class="value-section reveal">
+  <div class="section-label">Our unique value add</div>
+  <div class="value-h2">Big-tech marketing practices.<br><em>Built for business aviation.</em></div>
+  <div class="value-right">
+    <p>The most sophisticated companies in the world, Google, Salesforce, HubSpot, run marketing on a foundation of customer intelligence programs, predictive lead scoring, always-on paid media, and AI-driven sales systems. Business aviation is a narrow industry with its own regulatory structure, sales cycles, and buyer relationships, and marketing built without that context does not hold up. Until now, no single partner has combined direct aviation experience with the technical capability to build marketing and sales systems to that standard.</p>
+    <p class="dim">Wingspan closes that gap. We bring the practices, tools, and strategic rigor of the most advanced marketing operations in the world, deployed inside the relationship-driven, nuance-heavy reality of business aviation.</p>
+  </div>
+</section>
+
+<section class="services-section" id="services">
+  <div class="services-bar reveal">
+    <span class="bar-label">Services</span>
+    <span class="bar-label">03 Practices + AI</span>
+  </div>
+  <div class="pillars">
+    <a class="pl reveal" href="market-intelligence.html">
+      <div class="pl-num">01</div>
+      <div>
+        <div class="pl-title">Market Intelligence &amp; Voice of Customer</div>
+      </div>
+      <div>
+        <p class="pl-desc">We map your actual customer segments, how each one currently solves this problem without you, and the language and sales approach that actually gets their attention. Findings come from direct interviews, transaction data, and competitive intelligence pulled together. We also build the ongoing infrastructure that keeps that picture current, so it holds up past the initial engagement.</p>
+        <div class="pl-tags">
+          <span class="tag">VoC Research</span>
+          <span class="tag">Journey Mapping</span>
+          <span class="tag">Competitive Intel</span>
+          <span class="tag">Segment Analysis</span>
+        </div>
+        <div class="pl-cta">Explore the practice <span class="pl-arrow">→</span></div>
+      </div>
+    </a>
+    <a class="pl reveal d1" href="sales-marketing-infrastructure.html">
+      <div class="pl-num">02</div>
+      <div>
+        <div class="pl-title">Marketing &amp; Sales Infrastructure</div>
+      </div>
+      <div>
+        <p class="pl-desc">CRM architecture, lead scoring, and response systems built around how your business actually sells: a Part 135 charter quote, an MRO repair estimate, an aircraft management proposal. Whoever responds fastest and most accurately usually wins the business, and we build the systems that make that person you. That includes the basic groundwork most aviation businesses are missing: a website built to convert, email sequences people actually open, and tracking that works. It also includes the audience segments, customer personas, and retargeting infrastructure that make paid advertising worth running once you get there.</p>
+        <div class="pl-tags">
+          <span class="tag">CRM Design</span>
+          <span class="tag">Lead Scoring</span>
+          <span class="tag">Sales Playbooks</span>
+          <span class="tag">Marketing Automation</span>
+        </div>
+        <div class="pl-cta">Explore the practice <span class="pl-arrow">→</span></div>
+      </div>
+    </a>
+    <a class="pl reveal d2" href="paid-advertising.html">
+      <div class="pl-num">03</div>
+      <div>
+        <div class="pl-title">Paid Advertising</div>
+      </div>
+      <div>
+        <p class="pl-desc">Most ad platforms have no category for business aviation. Left to their defaults, they lump a charter buyer in with an aircraft owner, and an MRO procurement contact in with a leisure traveler, wasting spend fast in a market this specific. We build the audience segments this industry actually has, run retargeting and geofencing against them, and track every dollar spent to the lead it produced.</p>
+        <div class="pl-tags">
+          <span class="tag">Google Ads</span>
+          <span class="tag">LinkedIn</span>
+          <span class="tag">Geofencing</span>
+          <span class="tag">Meta</span>
+        </div>
+        <div class="pl-cta">Explore the practice <span class="pl-arrow">→</span></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="transition-band reveal">
+  <div class="band-eyebrow">// entering</div>
+  <div class="band-title">AI Transformation</div>
+  <div class="band-right">The path to efficiency: predictive scoring, automated nurture, and AI content, built for how business aviation sells.</div>
+  <div class="band-glow"></div>
+</div>
+
+<div class="ai-full reveal" id="ai-section">
+  <div class="ai-inner">
+    <div class="ai-left">
+      <div class="ai-badge"><span class="ai-badge-dot"></span>High Efficiency</div>
+      <div class="ai-num">04</div>
+      <div class="ai-header-main">AI</div>
+      <div class="ai-header-sub">For Marketing &amp; Sales Workflows</div>
+      <p class="ai-desc">The same predictive lead scoring, automated nurture, and AI-assisted content systems that power the biggest tech and enterprise sales teams, built for the scale of a business aviation company, and focused on one outcome: efficiency. We start with the workflow costing your team the most time, usually lead response or content production, and make it faster within weeks. No platform overhaul required to get there.</p>
+      <div class="ai-tags">
+        <span class="ai-tag">Predictive Scoring</span>
+        <span class="ai-tag">Automated Nurture</span>
+        <span class="ai-tag">AI Content</span>
+        <span class="ai-tag">Efficiency</span>
+      </div>
+      <a class="ai-cta" href="ai-transformation.html" style="text-decoration:none;">Explore this practice →</a>
+    </div>
+    <div class="ai-right">
+      <div class="spec-header">// WINGSPAN_AI_TRANSFORMATION.sys</div>
+      <div class="spec-row"><span class="sk">SERVICE</span><span class="sv">AI Applied to Marketing &amp; Sales</span></div>
+      <div class="spec-row"><span class="sk">FOCUS</span><span class="sv-c">EFFICIENCY</span></div>
+      <div class="spec-row"><span class="sk">PRACTICES</span><span class="sv">Predictive scoring · Automated nurture · AI content</span></div>
+      <div class="spec-row"><span class="sk">SECTOR</span><span class="sv">Aviation · Part 135 · MRO · FBO</span></div>
+      <div class="spec-row"><span class="sk">TIMELINE</span><span class="sv">First result in 6–8 wks</span></div>
+      <div class="spec-row"><span class="sk">MODEL</span><span class="sv">Project or retainer</span></div>
+      <div class="spec-row"><span class="sk">STATUS</span><span class="sv-c">ACCEPTING NEW CLIENTS<span class="spec-cursor"></span></span></div>
+    </div>
+  </div>
+</div>
+
+<div class="transition-exit"></div>
+
+<section class="timeline-section reveal">
+  <div class="section-label" style="margin-bottom:48px;">A Brief Context</div>
+  <div class="tl-prose">
+    Amazon deploys one of the first AI-driven recommendation engines at commercial scale<sup>1998</sup>
+    <span class="tl-slash">/</span>
+    IBM Watson beats human champions on Jeopardy!, the first mainstream demonstration of AI reasoning<sup>2011</sup>
+    <span class="tl-slash">/</span>
+    Garmin Autoland receives FAA certification on the Piper M600, the first general aviation autoland system certified to operate with no pilot input<sup>2020</sup>
+    <span class="tl-slash">/</span>
+    Apple's App Tracking Transparency update ends default third-party ad tracking, forcing a shift to first-party data and AI-driven modeling<sup>2021</sup>
+    <span class="tl-slash">/</span>
+    ChatGPT launches, bringing generative AI into everyday content and email marketing<sup>2022</sup>
+    <span class="tl-slash">/</span>
+    NATA and Embry-Riddle launch the first AI Symposium for Business Aviation<sup>2026</sup>
+  </div>
+</section>
+
+<section class="team-section reveal" id="team">
+  <div class="section-label">The Team</div>
+  <div class="value-h2" style="font-size:clamp(28px,4vw,48px);margin-bottom:0;">Built on<br><em>business aviation expertise.</em></div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-photo-wrap" tabindex="0">
+        <img class="team-photo" src="brooks.png" alt="Brooks">
+        <div class="team-photo-overlay"><p>Leads engagement strategy end to end, from initial discovery through delivery. Spends most weeks close to client operations rather than behind a desk, and prefers a small number of deep relationships over a large roster. Brings outside-industry marketing rigor without losing aviation-specific nuance.</p></div>
+      </div>
+      <div class="team-name">Brooks</div>
+      <div class="team-title">Founder &amp; Principal</div>
+      <p class="team-bio">Aviation marketing strategist with deep experience across Part 135, MRO, and business aviation broadly. Prior work: luxury hospitality, jet card sales infrastructure, enterprise MRO, completions, and FBO marketing, aviation technology go-to-market.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-photo-wrap" tabindex="0">
+        <div class="team-photo"></div>
+        <div class="team-photo-overlay"><p>Pressure-tests go-to-market plans the way a product organization would, catching gaps a marketing-only view tends to miss. Brings direct MRO operating experience alongside a product management background. Engaged project by project on product-facing work.</p></div>
+      </div>
+      <div class="team-name">Joe Ramirez</div>
+      <div class="team-title">Principal Product Manager</div>
+      <p class="team-bio">Principal Product Manager with prior MRO experience, engaged on projects requiring product-management rigor applied to go-to-market work.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-photo-wrap" tabindex="0">
+        <img class="team-photo" src="charlie.png" alt="Charlie Manning">
+        <div class="team-photo-overlay"><p>Evaluates where production, tooling, and supply chain constraints are actually limiting a client's growth before any marketing spend gets recommended. Engaged when a client's growth problem is really about capacity rather than demand. Brought in project by project, not on retainer.</p></div>
+      </div>
+      <div class="team-name">Charlie Manning</div>
+      <div class="team-title">Manufacturing &amp; Supply Chain Advisor</div>
+      <p class="team-bio">Background in manufacturing processes, production tooling, and supply chain management across business aviation and adjacent industries.</p>
+    </div>
+  </div>
+</section>
+
+<section class="clients-section reveal">
+  <div class="clients-bar">
+    <div class="section-label">Selected Clients</div>
+    <div class="value-h2" style="font-size:clamp(28px,4vw,48px);margin-bottom:0;">Trusted across MRO,<br><em>recovery, FBO, and government logistics.</em></div>
+  </div>
+  <div class="client-grid">
+    <div class="client-card" tabindex="0">
+      <img class="client-img" src="ams.png" alt="AMS Aircraft Recovery">
+      <div class="client-scrim"></div>
+      <div class="client-info">
+        <p class="client-desc">Go-to-market strategy and customer research for a specialized aircraft recovery operator. The engagement started with direct interviews with operators and insurers to understand how a buyer actually decides who to call during an AOG situation. That research shaped a positioning strategy built around speed and trust rather than general capability claims. The result was a clearer path from first contact to signed engagement.</p>
+        <div class="client-name">AMS Aircraft Recovery</div>
+        <div class="client-cat">MRO / Aircraft Recovery</div>
+      </div>
+    </div>
+    <div class="client-card" tabindex="0">
+      <img class="client-img" src="age.png" alt="AGE">
+      <div class="client-scrim"></div>
+      <div class="client-info">
+        <p class="client-desc">Industry positioning for a government logistics supplier serving military aircraft programs. The work translated complex program requirements into language a security-conscious, process-driven buyer would actually trust. Rather than compete on volume, the positioning focused on where the company fits precisely within a program's supply chain. That clarity became the foundation for every piece of outward-facing material that followed.</p>
+        <div class="client-name">AGE</div>
+        <div class="client-cat">Government / Military Logistics</div>
+      </div>
+    </div>
+    <div class="client-card" tabindex="0">
+      <img class="client-img" src="fbo.png" alt="Confidential Client">
+      <div class="client-scrim"></div>
+      <div class="client-info">
+        <p class="client-desc">Marketing and sales collateral for a combined FBO and MRO operator. The materials needed to speak to two different buyers at once: a based tenant deciding where to park long-term, and an operator scheduling a heavy check. Sales sheets, service overviews, and based-tenant materials were built to work whether the first conversation started on the ramp or in a hangar bay. The goal was one clear story, told consistently across every touchpoint.</p>
+        <div class="client-name">Confidential Client</div>
+        <div class="client-cat">FBO / MRO Operator</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof-section">
+  <div class="reveal">
+    <p class="proof-quote">"His extensive network and Sales &amp; Marketing expertise are instrumental in helping us better understand our customers and refine our go-to-market strategy. Brooks engages effectively with industry professionals, securing valuable connections and delivering insightful market research."</p>
+    <div class="proof-name">Sam Fishman</div>
+    <div class="proof-co">AMS Aircraft Recovery</div>
+  </div>
+  <div class="proof-right reveal d2">
+    <h3>Ready to fly<br><em>at altitude?</em></h3>
+    <p>Whether you're a Part 145 repair station growing B2B pipeline, a Part 135 charter operator scaling card sales, an FBO building based-tenant relationships, or an aircraft owner who wants a straight answer instead of a sales pitch: Wingspan was built for this.</p>
+  </div>
+</section>
+
+<section class="cta-section reveal">
+  <div class="cta-video-wrap">
+    <video autoplay muted playsinline>
+      <source src="field-web.mp4">
+    </video>
+  </div>
+  <div class="cta-copy">
+    <h2>Let's close the gap.<br><em>Start the conversation.</em></h2>
+    <p>Hourly, project, and retainer formats. Business aviation companies, and the owners who fly with them.</p>
+    <div class="cta-row">
+      <a class="btn-w" href="contact.html">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="fc">© 2026 Wingspan Aviation Consulting</span>
+  <div class="fl">
+    <span class="flink">New York, NY</span>
+    <span class="flink">brooks@yourwingspan.com</span>
+    <span class="flink">+1 (307) 247-5559</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  }), {threshold:.06});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<script>
+  (function(){
+    var video = document.getElementById('hero-video');
+    var overlay = document.getElementById('hero-fade-overlay');
+    if(!video || !overlay) return;
+    var FADE = 0.25;
+    var fading = false;
+    document.addEventListener('visibilitychange', function(){
+      if(!document.hidden && video.paused && !fading) video.play().catch(function(){});
+    });
+    video.addEventListener('pause', function(){
+      if(!document.hidden && !fading) video.play().catch(function(){});
+    });
+    video.addEventListener('timeupdate', function(){
+      if(fading || !video.duration) return;
+      if(video.duration - video.currentTime <= FADE){
+        fading = true;
+        overlay.style.opacity = '1';
+        setTimeout(function(){
+          video.currentTime = 0;
+          video.play();
+          requestAnimationFrame(function(){ overlay.style.opacity = '0'; });
+          setTimeout(function(){ fading = false; }, FADE * 1000);
+        }, FADE * 1000);
+      }
+    });
+  })();
+</script>
+<script src="tweak-bar.js"></script>
+<script src="copy-brief.js"></script>
+</body>
+</html>

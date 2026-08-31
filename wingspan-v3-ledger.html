@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wingspan Aviation Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#20242A;
+  --navy:#0C3C60;
+  --paper:#FCFBF8;
+  --line:#D8D3C6;
+  --line-strong:#20242A;
+  --muted:#8a8570;
+  --cerulean:#2596BE;
+  --glass:#EBFFF6;
+  --celadon:#8DC7C3;
+  --out:cubic-bezier(0,0,.2,1);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Source Serif 4',serif;font-weight:400;background:var(--paper);color:var(--ink);overflow-x:hidden;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 52px;background:var(--paper);border-bottom:2px solid var(--line-strong);}
+.nav-logo{display:flex;align-items:baseline;gap:8px;}
+.nav-logo-mark{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--cerulean);}
+.nav-wordmark{font-family:'Source Serif 4',serif;font-size:17px;font-weight:500;color:var(--ink);letter-spacing:.01em;}
+.nav-links{display:flex;align-items:center;gap:36px;}
+.nl{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.02em;color:var(--muted);text-decoration:none;}
+.nl:hover{color:var(--ink);}
+.nav-cta{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;background:var(--ink);color:var(--paper);border:none;padding:9px 18px;cursor:pointer;}
+.nav-cta:hover{background:var(--navy);}
+
+/* AI PILL */
+.ai-pill{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;align-items:center;gap:8px;background:var(--paper);border:2px solid var(--ink);padding:9px 15px;cursor:pointer;text-decoration:none;}
+.ai-pill-dot{width:5px;height:5px;background:var(--cerulean);animation:pulse 2.5s ease-in-out infinite;}
+.ai-pill-text{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.06em;color:var(--ink);text-transform:uppercase;}
+
+/* HERO */
+.hero{position:relative;height:82vh;min-height:460px;background:var(--ink);overflow:hidden;border-bottom:2px solid var(--ink);}
+.hero-video-wrap{position:absolute;inset:0;z-index:0;}
+.hero-video-wrap video{width:100%;height:100%;object-fit:cover;filter:sepia(.08) contrast(1.05);}
+.hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(32,36,42,.3) 0%,rgba(32,36,42,.05) 40%,rgba(32,36,42,.6) 100%);}
+.hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.hero-h1{font-family:'Source Serif 4',serif;font-size:clamp(38px,5.6vw,76px);font-weight:400;color:#fff;line-height:1.02;margin-bottom:18px;}
+.hero-brand{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);}
+
+/* LOG HEADER — replaces marquee: a document-header stamp bar */
+.log-header{display:flex;justify-content:space-between;padding:14px 52px;background:var(--paper);border-bottom:1px solid var(--line);}
+.log-header span{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
+.log-header span.acc{color:var(--cerulean);}
+
+/* VALUE — ledger entry */
+.value-section{background:var(--paper);border-bottom:1px solid var(--line);}
+.ledger-row{display:grid;grid-template-columns:70px 1fr;border-bottom:1px solid var(--line);}
+.ledger-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);padding:64px 0 64px 52px;border-right:1px solid var(--line);}
+.value-inner{padding:64px 56px;display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:24px;}
+.value-h2{font-family:'Source Serif 4',serif;font-size:clamp(26px,3vw,38px);font-weight:400;color:var(--ink);line-height:1.2;}
+.value-h2 em{font-style:italic;color:var(--navy);}
+.value-right p{font-size:14.5px;color:#3d434b;line-height:1.85;margin-bottom:18px;font-weight:400;}
+.value-right p.dim{color:var(--muted);font-size:13.5px;font-family:'Inter',sans-serif;}
+
+/* SERVICES — tabular */
+.services-section{border-bottom:1px solid var(--line);}
+.services-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 52px;border-bottom:1px solid var(--line-strong);}
+.bar-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
+.pillars{display:block;}
+.pl{display:grid;grid-template-columns:70px 1fr 1.6fr 200px;gap:24px;align-items:start;padding:32px 52px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .2s;}
+.pl:hover{background:rgba(37,150,190,.04);}
+.pl:hover .pl-arrow{opacity:1;transform:translateX(4px);}
+.pl-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);padding-top:4px;}
+.pl-title{font-family:'Source Serif 4',serif;font-size:19px;font-weight:500;color:var(--ink);line-height:1.3;}
+.pl-desc{font-size:13px;color:var(--muted);line-height:1.8;font-family:'Inter',sans-serif;font-weight:300;}
+.pl-tags{display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.02em;color:var(--ink);border:1px solid var(--line);padding:3px 8px;}
+.pl-cta{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:6px;margin-top:8px;}
+.pl-arrow{opacity:0;transition:opacity .2s,transform .25s var(--out);}
+
+/* TRANSITION */
+.transition-band{padding:22px 52px;background:var(--ink);display:flex;align-items:center;justify-content:space-between;}
+.band-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--cerulean);text-transform:uppercase;margin-bottom:4px;}
+.band-title{font-family:'Source Serif 4',serif;font-size:16px;color:#fff;}
+.band-right{font-family:'Inter',sans-serif;font-size:11px;font-weight:300;color:rgba(255,255,255,.4);max-width:280px;line-height:1.7;text-align:right;}
+
+/* AI SECTION — terminal ledger */
+.ai-full{background:#050706;border-top:2px solid var(--celadon);border-bottom:2px solid var(--celadon);}
+.ai-inner{display:grid;grid-template-columns:1fr 1fr;}
+.ai-left{padding:48px 52px;border-right:1px solid rgba(141,199,195,.2);display:flex;flex-direction:column;}
+.ai-badge{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--celadon);margin-bottom:18px;}
+.ai-badge-dot{width:5px;height:5px;background:var(--celadon);animation:pulse 2.5s ease-in-out infinite;}
+.ai-num{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;color:rgba(37,150,190,.55);margin-bottom:14px;}
+.ai-header-main{font-family:'IBM Plex Mono',monospace;font-size:clamp(20px,2.4vw,28px);color:var(--glass);letter-spacing:.02em;margin-bottom:4px;}
+.ai-header-sub{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--cerulean);letter-spacing:.14em;opacity:.75;margin-bottom:20px;text-transform:uppercase;}
+.ai-desc{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:400;color:rgba(235,255,246,.6);line-height:1.9;margin-bottom:22px;}
+.ai-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:26px;}
+.ai-tag{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.02em;text-transform:uppercase;color:var(--celadon);border:1px solid rgba(141,199,195,.3);padding:4px 9px;}
+.ai-cta{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--cerulean);margin-top:auto;}
+.ai-right{padding:48px 52px;display:flex;flex-direction:column;justify-content:center;}
+.spec-header{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.1em;color:rgba(37,150,190,.6);text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px dashed rgba(141,199,195,.3);}
+.spec-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:11px;border-bottom:1px dotted rgba(141,199,195,.12);padding-bottom:6px;}
+.sk{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.02em;color:var(--celadon);opacity:.85;}
+.sv{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--glass);text-align:right;}
+.sv-c{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--cerulean);text-align:right;}
+.spec-cursor{display:inline-block;width:5px;height:10px;background:var(--cerulean);opacity:.9;vertical-align:middle;margin-left:2px;animation:blink .8s step-end infinite;}
+.ai-bottom-band{height:2px;background:linear-gradient(90deg,var(--glass),var(--celadon),var(--cerulean));}
+
+/* TIMELINE — logbook list */
+.timeline-section{padding:64px 52px;background:var(--paper);border-bottom:1px solid var(--line);}
+.tl-list{max-width:920px;border-top:1px solid var(--line-strong);}
+.tl-row{display:grid;grid-template-columns:70px 1fr;gap:24px;padding:18px 0;border-bottom:1px solid var(--line);}
+.tl-year{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cerulean);}
+.tl-text{font-family:'Source Serif 4',serif;font-size:15px;color:var(--ink);line-height:1.6;}
+
+/* PROOF */
+.proof-section{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);background:var(--paper);}
+.proof-left{padding:64px 52px;border-right:1px solid var(--line);}
+.proof-quote{font-family:'Source Serif 4',serif;font-size:clamp(15px,1.5vw,19px);font-style:italic;color:var(--ink);line-height:1.7;margin-bottom:24px;}
+.proof-name{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink);margin-bottom:3px;}
+.proof-co{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;}
+.proof-right{padding:64px 52px;display:flex;flex-direction:column;justify-content:center;}
+.proof-right h3{font-family:'Source Serif 4',serif;font-size:clamp(22px,2.4vw,30px);font-weight:400;color:var(--ink);line-height:1.25;margin-bottom:16px;}
+.proof-right h3 em{font-style:italic;color:var(--navy);}
+.proof-right p{font-family:'Inter',sans-serif;font-size:12.5px;color:var(--muted);line-height:1.9;margin-bottom:24px;font-weight:300;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.04em;color:var(--ink);text-transform:uppercase;border:1px solid var(--line);padding:6px 12px;}
+
+/* CTA / CONTACT — ledger closing entry with inset video */
+.cta-section{background:var(--ink);padding:80px 52px;display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center;}
+.cta-section h2{font-family:'Source Serif 4',serif;font-size:clamp(28px,4vw,46px);font-weight:400;color:#fff;line-height:1.15;margin-bottom:18px;}
+.cta-section h2 em{font-style:italic;color:rgba(255,255,255,.5);}
+.cta-section p{font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(255,255,255,.35);margin-bottom:36px;line-height:1.9;font-weight:300;}
+.cta-row{display:flex;gap:12px;}
+.btn-w{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;background:#fff;color:var(--ink);border:none;padding:13px 24px;cursor:pointer;}
+.btn-w:hover{background:var(--cerulean);color:#fff;}
+.btn-o{font-family:'IBM Plex Mono',monospace;font-size:10px;background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.25);padding:13px 24px;cursor:pointer;}
+.btn-o:hover{color:#fff;border-color:#fff;}
+.cta-video-frame{border:1px solid rgba(255,255,255,.2);padding:8px;}
+.cta-video-inner{position:relative;overflow:hidden;aspect-ratio:4/5;}
+.cta-video-inner video{width:100%;height:100%;object-fit:cover;filter:grayscale(.2);}
+.cta-video-label{padding-top:8px;font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.06em;color:rgba(255,255,255,.35);text-transform:uppercase;}
+
+/* FOOTER */
+footer{background:var(--paper);padding:18px 52px;border-top:2px solid var(--ink);display:flex;align-items:center;justify-content:space-between;}
+.fc{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);}
+.fl{display:flex;gap:22px;}
+.flink{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .7s var(--out),transform .7s var(--out);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}
+
+@media(max-width:900px){
+  .value-inner,.proof-section,.cta-section{grid-template-columns:1fr;}
+  .ledger-row{grid-template-columns:1fr;}
+  .ledger-num{display:none;}
+  .pl{grid-template-columns:1fr;}
+  .proof-left{border-right:none;border-bottom:1px solid var(--line);}
+  nav{padding:14px 20px;}
+  .nl{display:none;}
+  .ai-inner{grid-template-columns:1fr;}
+  .ai-left{border-right:none;border-bottom:1px solid rgba(141,199,195,.2);}
+  .log-header{flex-direction:column;align-items:flex-start;gap:6px;padding-bottom:60px;}
+  .ai-pill{bottom:16px;left:20px;right:auto;}
+}
+</style>
+</head>
+<body>
+
+<a class="ai-pill" href="#ai-section">
+  <span class="ai-pill-dot"></span>
+  <span class="ai-pill-text">AI Transformation</span>
+</a>
+
+<nav>
+  <div class="nav-logo">
+    <span class="nav-logo-mark">§</span>
+    <span class="nav-wordmark">Wingspan</span>
+  </div>
+  <div class="nav-links">
+    <a href="#services" class="nl">Services</a>
+    <a href="#" class="nl">B2B</a>
+    <a href="#" class="nl">Private Aviation</a>
+    <a href="#" class="nl">The Team</a>
+    <button class="nav-cta" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">Let's Talk</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-video-wrap">
+    <video autoplay muted loop playsinline>
+      <source src="clouds.mov">
+    </video>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <h1 class="hero-h1">Extend Your Reach</h1>
+    <div class="hero-brand">Wingspan Aviation Consulting</div>
+  </div>
+</section>
+
+<div class="log-header">
+  <span>Vol. I — Aviation Marketing &amp; Sales</span>
+  <span class="acc">Est. 2024 · San Diego, CA</span>
+</div>
+
+<section class="value-section reveal">
+  <div class="ledger-row">
+    <div class="ledger-num">01</div>
+    <div class="value-inner">
+      <div>
+        <div class="section-label">Our unique value add</div>
+        <div class="value-h2">Big-tech marketing<br>practices. <em>Built for<br>aviation.</em></div>
+      </div>
+      <div class="value-right">
+        <p>The most sophisticated companies in the world — Google, Salesforce, HubSpot — run marketing on a foundation of customer intelligence programs, predictive lead scoring, always-on paid media, and AI-driven sales systems. Aviation businesses have the same needs. Until now, they have had no partner who understood both sides well enough to build it for them.</p>
+        <p class="dim">Wingspan closes that gap. We bring the practices, tools, and strategic rigor of the most advanced marketing operations in the world, deployed inside the relationship-driven, nuance-heavy reality of aviation — where knowing the difference between an AOG call and a routine inspection is the baseline, not the differentiator.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-section" id="services">
+  <div class="services-bar reveal">
+    <span class="bar-label">Services</span>
+    <span class="bar-label">03 Practices + AI</span>
+  </div>
+  <div class="pillars">
+    <div class="pl reveal">
+      <div class="pl-num">01</div>
+      <div class="pl-title">Market Intelligence &amp; Voice of Customer</div>
+      <p class="pl-desc">Know what your customers actually think — not what you assume. Research built on aviation relationships and structured methodology.</p>
+      <div class="pl-tags">
+        <span class="tag">VoC Research</span>
+        <span class="tag">Journey Mapping</span>
+        <span class="tag">Competitive Intel</span>
+        <div class="pl-cta">Explore <span class="pl-arrow">→</span></div>
+      </div>
+    </div>
+    <div class="pl reveal d1">
+      <div class="pl-num">02</div>
+      <div class="pl-title">Sales &amp; Marketing Infrastructure</div>
+      <p class="pl-desc">The systems that turn interest into revenue. CRM architecture, lead scoring, playbooks, and paid advertising as a core growth engine.</p>
+      <div class="pl-tags">
+        <span class="tag">CRM Design</span>
+        <span class="tag">Lead Scoring</span>
+        <span class="tag">Paid Media</span>
+        <div class="pl-cta">Explore <span class="pl-arrow">→</span></div>
+      </div>
+    </div>
+    <div class="pl reveal d2">
+      <div class="pl-num">03</div>
+      <div class="pl-title">Paid Advertising</div>
+      <p class="pl-desc">Command the airspace. Reach the right aviation buyers before your competition — on every channel that matters.</p>
+      <div class="pl-tags">
+        <span class="tag">Google Ads</span>
+        <span class="tag">LinkedIn</span>
+        <span class="tag">Geofencing</span>
+        <span class="tag">Meta</span>
+        <div class="pl-cta">Explore <span class="pl-arrow">→</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="transition-band reveal">
+  <div>
+    <div class="band-eyebrow">// entering</div>
+    <div class="band-title">AI Transformation</div>
+  </div>
+  <div class="band-right">The fastest-moving practice we offer, and often the one with the quickest return.</div>
+</div>
+
+<div class="ai-full reveal" id="ai-section">
+  <div class="ai-inner">
+    <div class="ai-left">
+      <div class="ai-badge"><span class="ai-badge-dot"></span>High Impact</div>
+      <div class="ai-num">04</div>
+      <div class="ai-header-main">AI</div>
+      <div class="ai-header-sub">Transformation of Marketing &amp; Sales</div>
+      <p class="ai-desc">AI is changing how aviation marketing and sales teams operate. We build predictive, automated systems into the tools your team already runs.</p>
+      <div class="ai-tags">
+        <span class="ai-tag">Predictive Scoring</span>
+        <span class="ai-tag">Automation</span>
+        <span class="ai-tag">Sales Intelligence</span>
+        <span class="ai-tag">Content at Scale</span>
+      </div>
+      <div class="ai-cta">Explore this practice →</div>
+    </div>
+    <div class="ai-right">
+      <div class="spec-header">// WINGSPAN_AI_TRANSFORMATION.sys</div>
+      <div class="spec-row"><span class="sk">SERVICE</span><span class="sv">AI Transformation · Mktg &amp; Sales</span></div>
+      <div class="spec-row"><span class="sk">IMPACT_CLASS</span><span class="sv-c">HIGH</span></div>
+      <div class="spec-row"><span class="sk">SECTOR</span><span class="sv">Aviation · Part 135 · MRO · FBO</span></div>
+      <div class="spec-row"><span class="sk">LEAD_SCORE_SYS</span><span class="sv">Predictive · ML-trained</span></div>
+      <div class="spec-row"><span class="sk">AUTOMATION</span><span class="sv">Outreach · Nurture · Re-engage</span></div>
+      <div class="spec-row"><span class="sk">SALES_INTEL</span><span class="sv">Real-time · Competitor signals</span></div>
+      <div class="spec-row"><span class="sk">CONTENT_SYS</span><span class="sv">AI-generated · Brand-calibrated</span></div>
+      <div class="spec-row"><span class="sk">CRM_LAYER</span><span class="sv">Intelligence overlay · Next-best-action</span></div>
+      <div class="spec-row"><span class="sk">DEPLOYMENT</span><span class="sv">6–8 wks · Retainer available</span></div>
+      <div class="spec-row" style="border-bottom:none;"><span class="sk">STATUS</span><span class="sv-c">ACCEPTING NEW CLIENTS<span class="spec-cursor"></span></span></div>
+    </div>
+  </div>
+  <div class="ai-bottom-band"></div>
+</div>
+
+<section class="timeline-section reveal">
+  <div class="section-label" style="margin-bottom:20px;">Experience</div>
+  <div class="tl-list">
+    <div class="tl-row"><div class="tl-year">2016</div><div class="tl-text">Luxury hospitality at Aman Resorts — learning HNW customers at the highest level</div></div>
+    <div class="tl-row"><div class="tl-year">2019</div><div class="tl-text">Volato — building jet card sales infrastructure at a Part 135 operator</div></div>
+    <div class="tl-row"><div class="tl-year">2022</div><div class="tl-text">Jet Aviation — enterprise marketing across MRO, completions, and FBO globally</div></div>
+    <div class="tl-row"><div class="tl-year">2023</div><div class="tl-text">Admiral Technologies — go-to-market strategy for aviation technology</div></div>
+    <div class="tl-row"><div class="tl-year">2024</div><div class="tl-text">Wingspan founded</div></div>
+  </div>
+</section>
+
+<section class="proof-section">
+  <div class="proof-left reveal">
+    <p class="proof-quote">"His extensive network and Sales &amp; Marketing expertise are instrumental in helping us better understand our customers and refine our go-to-market strategy. Brooks engages effectively with industry professionals, securing valuable connections and delivering insightful market research."</p>
+    <div class="proof-name">Sam Fishman</div>
+    <div class="proof-co">AMS Aircraft Recovery</div>
+  </div>
+  <div class="proof-right reveal d2">
+    <h3>Ready to fly<br><em>at altitude?</em></h3>
+    <p>Whether you are an MRO growing B2B pipeline, a charter brand scaling card sales, or a private aviator who needs a trusted advisor — Wingspan was built for this.</p>
+    <div class="chips">
+      <span class="chip">AMS Aircraft Recovery</span>
+      <span class="chip">Admiral Technologies</span>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section reveal">
+  <div>
+    <h2>Let's close the gap.<br><em>Start the conversation.</em></h2>
+    <p>Hourly, project, and retainer formats. B2B aviation and private aviation concierge.</p>
+    <div class="cta-row">
+      <button class="btn-w">Get in Touch</button>
+      <button class="btn-o">View Case Studies</button>
+    </div>
+  </div>
+  <div>
+    <div class="cta-video-frame">
+      <div class="cta-video-inner">
+        <video autoplay muted loop playsinline>
+          <source src="field-web.mp4">
+        </video>
+      </div>
+    </div>
+    <div class="cta-video-label">Fig. 01 — On location</div>
+  </div>
+</section>
+
+<footer>
+  <span class="fc">© 2026 Wingspan Aviation Consulting</span>
+  <div class="fl">
+    <span class="flink">San Diego, CA</span>
+    <span class="flink">brooks@yourwingspan.com</span>
+    <span class="flink">+1 (307) 247-5559</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  }), {threshold:.06});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

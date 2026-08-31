@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact: Wingspan Aviation Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500&family=IBM+Plex+Sans:wght@200;300;400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tweak-bar.css">
+<link rel="stylesheet" href="copy-brief.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#101418;
+  --white:#FFFFFF;
+  --cerulean:#2596BE;
+  --out:cubic-bezier(.16,1,.3,1);
+  --tb-font-heading:'IBM Plex Sans', sans-serif;
+  --tb-font-body:'IBM Plex Sans', sans-serif;
+  --tb-heading-scale:1.1;
+  --tb-body-scale:1.1;
+  --tb-ls:0.005em;
+  --tb-lh:1.05;
+  --tb-heading-weight:200;
+  --tb-bg-primary:#FFFFFF;
+  --tb-bg-alt:#F5F5F5;
+  --tb-heading-color:#14181C;
+  --tb-body-color:#383C42;
+  --tb-accent:#2596BE;
+  --tb-nav-bg:rgba(255,255,255,.9);
+  --tb-pad-scale:1.35;
+  --tb-radius:8px;
+  --tb-divider-w:1px;
+  --tb-divider-s:solid;
+}
+html,body{height:100%;}
+body{font-family:'Archivo',sans-serif;font-weight:200;background:var(--ink);color:#fff;overflow-x:hidden;min-height:100vh;}
+.mono{font-family:'Space Mono',monospace;}
+
+/* FULL BACKGROUND VIDEO */
+.bg-video-wrap{position:fixed;inset:0;z-index:0;}
+.bg-video-wrap video{width:100%;height:100%;object-fit:cover;}
+.bg-scrim{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(16,20,24,.6) 0%,rgba(16,20,24,.72) 50%,rgba(16,20,24,.85) 100%);}
+
+/* NAV: transparent, overlaid on video */
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:36px 64px;}
+.nav-wordmark{font-family:var(--tb-font-heading);font-size:14px;font-weight:400;letter-spacing:.005em;color:#fff;text-decoration:none;}
+.nav-wordmark strong{font-weight:600;}
+.nav-links{display:flex;align-items:center;gap:48px;}
+.nl{font-size:12px;color:rgba(255,255,255,.55);text-decoration:none;font-weight:300;}
+.nl:hover{color:#fff;}
+.nav-dropdown{position:relative;}
+.nav-dropdown-menu{position:absolute;top:100%;left:50%;transform:translate(-50%,4px);margin-top:20px;background:#fff;border:1px solid rgba(16,20,24,.09);min-width:260px;opacity:0;visibility:hidden;transition:opacity .2s var(--out),transform .2s var(--out),visibility .2s;box-shadow:0 16px 40px rgba(16,20,24,.3);}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;visibility:visible;transform:translate(-50%,0);}
+.nav-dropdown-menu a{display:block;padding:16px 22px;font-size:12px;color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(16,20,24,.09);font-weight:300;}
+.nav-dropdown-menu a:last-child{border-bottom:none;}
+.nav-dropdown-menu a:hover{background:#FAFAF9;color:var(--ink);}
+.nav-dropdown-menu a[href="ai-transformation.html"]:hover{color:var(--cerulean);}
+.nav-cta{font-family:'Archivo',sans-serif;font-size:12px;font-weight:400;background:#fff;color:var(--ink);border:1px solid #fff;padding:9px 20px;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap;}
+.nav-cta:hover{background:var(--ink);border-color:var(--ink);color:#fff;}
+
+/* MAIN CONTENT */
+main{position:relative;z-index:5;display:grid;grid-template-columns:1fr 1fr;gap:64px;padding:40px 64px 80px;align-items:center;min-height:calc(100vh - 108px);}
+.contact-copy{max-width:480px;}
+.contact-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--celadon);text-transform:uppercase;margin-bottom:22px;}
+.contact-h1{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * clamp(38px,5.6vw,72px));font-weight:var(--tb-heading-weight);color:#fff;line-height:calc(1.02 * var(--tb-lh));letter-spacing:calc(-.02em + var(--tb-ls));margin-bottom:24px;}
+.contact-sub{font-family:var(--tb-font-body);font-size:calc(var(--tb-body-scale) * 14px);color:rgba(255,255,255,.55);line-height:calc(1.9 * var(--tb-lh));font-weight:300;margin-bottom:32px;letter-spacing:var(--tb-ls);}
+.contact-meta{display:flex;flex-direction:column;gap:8px;}
+.contact-meta a,.contact-meta span{font-size:12.5px;color:rgba(255,255,255,.6);text-decoration:none;font-weight:300;}
+.contact-meta a:hover{color:var(--celadon);}
+
+/* FORM CARD */
+.form-card{background:rgba(255,255,255,.08);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.18);padding:44px;max-width:480px;width:100%;justify-self:end;border-radius:var(--tb-radius);}
+.field{margin-bottom:20px;}
+.field label{display:block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px;}
+.field input,.field select,.field textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);color:#fff;font-family:'Archivo',sans-serif;font-size:13px;font-weight:300;padding:12px 14px;border-radius:2px;}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--celadon);}
+.field select{cursor:pointer;}
+.field select option{background:var(--ink);color:#fff;}
+.field textarea{resize:vertical;min-height:90px;font-family:'Archivo',sans-serif;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-submit{width:100%;font-family:'Archivo',sans-serif;font-size:13px;font-weight:400;background:#fff;color:var(--ink);border:none;padding:15px 32px;border-radius:4px;cursor:pointer;margin-top:8px;transition:background .2s,color .2s;}
+.form-submit:hover{background:var(--ink);color:#fff;}
+.form-thanks{display:none;text-align:center;padding:40px 0;}
+.form-thanks h3{font-family:'Archivo',sans-serif;font-size:24px;font-weight:300;color:#fff;margin-bottom:12px;}
+.form-thanks p{font-size:13px;color:rgba(255,255,255,.55);font-weight:300;}
+.form-card.sent .field,.form-card.sent .form-submit{display:none;}
+.form-card.sent .form-thanks{display:block;}
+
+/* FOOTER */
+footer{position:relative;z-index:5;padding:28px 64px 78px;display:flex;align-items:center;justify-content:space-between;}
+.fc{font-size:11px;color:rgba(255,255,255,.4);font-weight:300;}
+.fl{display:flex;gap:32px;}
+.flink{font-size:11px;color:rgba(255,255,255,.4);font-weight:300;text-decoration:none;}
+.flink:hover{color:var(--celadon);}
+
+@media(max-width:900px){
+  nav{padding:24px 24px;}
+  .nl{display:none;}
+  main{grid-template-columns:1fr;padding:24px 24px 60px;gap:40px;min-height:auto;}
+  .contact-copy{max-width:none;}
+  .form-card{justify-self:stretch;max-width:none;padding:28px;}
+  .field-row{grid-template-columns:1fr;}
+  footer{padding:20px 24px;flex-direction:column;gap:10px;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-video-wrap">
+  <video autoplay muted loop playsinline>
+    <source src="field-web.mp4">
+  </video>
+</div>
+<div class="bg-scrim"></div>
+
+<nav>
+  <a href="wingspan-v4-altitude.html" class="nav-wordmark"><strong>Wingspan</strong> Aviation Consulting</a>
+  <div class="nav-links">
+    <div class="nav-dropdown">
+      <a href="wingspan-v4-altitude.html#services" class="nl">Services</a>
+      <div class="nav-dropdown-menu">
+        <a href="market-intelligence.html">Market Intelligence &amp; Voice of Customer</a>
+        <a href="sales-marketing-infrastructure.html">Marketing &amp; Sales Infrastructure</a>
+        <a href="paid-advertising.html">Paid Advertising</a>
+        <a href="ai-transformation.html">AI Transformation</a>
+      </div>
+    </div>
+    <a href="wingspan-v4-altitude.html#team" class="nl">The Team</a>
+    <a href="contact.html" class="nav-cta">Let's Talk</a>
+  </div>
+</nav>
+
+<main>
+  <div class="contact-copy">
+    <div class="contact-eyebrow">Throttle Forward</div>
+    <h1 class="contact-h1">Start the Conversation</h1>
+    <p class="contact-sub">Hourly, project, and retainer formats, for business aviation companies and the owners who fly with them. Tell us where you're headed and we'll help you get there.</p>
+    <div class="contact-meta">
+      <span>New York, NY</span>
+      <a href="mailto:brooks@yourwingspan.com">brooks@yourwingspan.com</a>
+      <span>+1 (307) 247-5559</span>
+    </div>
+  </div>
+
+  <form class="form-card" id="contact-form">
+    <div class="field">
+      <label for="f-name">Name</label>
+      <input type="text" id="f-name" name="name" required>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="f-company">Company</label>
+        <input type="text" id="f-company" name="company">
+      </div>
+      <div class="field">
+        <label for="f-phone">Phone</label>
+        <input type="tel" id="f-phone" name="phone">
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-email">Email</label>
+      <input type="email" id="f-email" name="email" required>
+    </div>
+    <div class="field">
+      <label for="f-service">Service Interest</label>
+      <select id="f-service" name="service">
+        <option>Market Intelligence &amp; Voice of Customer</option>
+        <option>Marketing &amp; Sales Infrastructure</option>
+        <option>Paid Advertising</option>
+        <option>AI Transformation</option>
+        <option>Not Sure Yet</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="f-message">Message</label>
+      <textarea id="f-message" name="message"></textarea>
+    </div>
+    <button type="submit" class="form-submit">Send Message</button>
+    <div class="form-thanks">
+      <h3>Message sent.</h3>
+      <p>We'll be in touch shortly.</p>
+    </div>
+  </form>
+</main>
+
+<footer>
+  <span class="fc">© 2026 Wingspan Aviation Consulting</span>
+  <div class="fl">
+    <span class="flink">New York, NY</span>
+    <a class="flink" href="mailto:brooks@yourwingspan.com">brooks@yourwingspan.com</a>
+    <span class="flink">+1 (307) 247-5559</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('contact-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    this.classList.add('sent');
+  });
+</script>
+<script src="tweak-bar.js"></script>
+<script src="copy-brief.js"></script>
+</body>
+</html>
