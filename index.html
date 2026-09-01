@@ -83,7 +83,7 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .value-right p.dim{color:var(--muted);font-size:14px;}
 
 /* SERVICES: stacked full-width rows */
-.services-section{border-top:var(--tb-divider-w) var(--tb-divider-s) var(--line);background:var(--tb-bg-alt);}
+.services-section{border-top:var(--tb-divider-w) var(--tb-divider-s) var(--line);background:var(--white);}
 .services-bar{display:flex;align-items:center;justify-content:space-between;padding:calc(var(--tb-pad-scale) * 22px) 64px;}
 .bar-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;}
 .pillars{display:block;}
@@ -145,7 +145,7 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 /* TEAM: modular bordered grid, matching the v4c-modular variant's card structure */
 .team-section{padding:calc(var(--tb-pad-scale) * 140px) 64px calc(var(--tb-pad-scale) * 180px);background:var(--tb-bg-alt);}
 .team-grid{display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:72px;border-top:var(--tb-divider-w) var(--tb-divider-s) var(--line);border-left:var(--tb-divider-w) var(--tb-divider-s) var(--line);}
-.team-card{padding:40px;border-right:var(--tb-divider-w) var(--tb-divider-s) var(--line);border-bottom:var(--tb-divider-w) var(--tb-divider-s) var(--line);}
+.team-card{padding:40px;border-right:var(--tb-divider-w) var(--tb-divider-s) var(--line);border-bottom:var(--tb-divider-w) var(--tb-divider-s) var(--line);display:flex;flex-direction:column;}
 .team-photo-wrap{position:relative;width:100%;margin-bottom:24px;overflow:hidden;border-radius:4px;cursor:default;}
 .team-photo{width:100%;aspect-ratio:1/1;background:var(--fill);display:block;object-fit:cover;object-position:center top;transform-origin:center top;}
 .team-photo[src="brooks.png"]{transform:scale(1.16);}
@@ -155,6 +155,7 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .team-name{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * 27px);font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);margin-bottom:6px;letter-spacing:calc(-.01em + var(--tb-ls));}
 .team-title{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:18px;}
 .team-bio{font-family:var(--tb-font-body);font-size:calc(var(--tb-body-scale) * 15.5px);color:var(--muted);line-height:calc(1.75 * var(--tb-lh));font-weight:300;margin-bottom:16px;letter-spacing:var(--tb-ls);}
+.team-email{font-family:var(--tb-font-body);font-size:calc(var(--tb-body-scale) * 12.5px);color:var(--muted);font-weight:300;letter-spacing:var(--tb-ls);margin-top:auto;padding-top:8px;}
 .team-credential{font-size:11px;color:var(--ink);font-weight:400;padding-top:14px;border-top:var(--tb-divider-w) var(--tb-divider-s) var(--line);}
 
 /* CLIENT GRID: full bleed, gapless, UP.Partners style */
@@ -380,7 +381,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
 <div class="transition-exit"></div>
 
 <section class="timeline-section reveal">
-  <div class="section-label" style="margin-bottom:48px;">A Brief Context</div>
+  <div class="section-label" style="margin-bottom:48px;">A Brief Context of AI</div>
   <div class="tl-prose">
     Amazon deploys one of the first AI-driven recommendation engines at commercial scale<sup>1998</sup>
     <span class="tl-slash">/</span>
@@ -398,7 +399,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
 
 <section class="team-section reveal" id="team">
   <div class="section-label">The Team</div>
-  <div class="value-h2" style="font-size:clamp(28px,4vw,48px);margin-bottom:0;">Built on<br><em>business aviation expertise.</em></div>
+  <div class="value-h2" style="font-size:clamp(28px,4vw,48px);margin-bottom:0;">Built on<br><em>a genuine obsession with aviation.</em></div>
   <div class="team-grid">
     <div class="team-card">
       <div class="team-photo-wrap" tabindex="0">
@@ -408,6 +409,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
       <div class="team-name">Brooks</div>
       <div class="team-title">Founder &amp; Principal</div>
       <p class="team-bio">Aviation marketing strategist with deep experience across Part 135, MRO, and business aviation broadly. Prior work: luxury hospitality, jet card sales infrastructure, enterprise MRO, completions, and FBO marketing, aviation technology go-to-market.</p>
+      <div class="team-email">brooks@yourwingspan.com</div>
     </div>
     <div class="team-card">
       <div class="team-photo-wrap" tabindex="0">
@@ -415,8 +417,9 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
         <div class="team-photo-overlay"><p>Pressure-tests go-to-market plans the way a product organization would, catching gaps a marketing-only view tends to miss. Brings direct MRO operating experience alongside a product management background. Engaged project by project on product-facing work.</p></div>
       </div>
       <div class="team-name">Joe Ramirez</div>
-      <div class="team-title">Principal Product Manager</div>
+      <div class="team-title">Product Management</div>
       <p class="team-bio">Principal Product Manager with prior MRO experience, engaged on projects requiring product-management rigor applied to go-to-market work.</p>
+      <div class="team-email">joe@yourwingspan.com</div>
     </div>
     <div class="team-card">
       <div class="team-photo-wrap" tabindex="0">
@@ -424,8 +427,9 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
         <div class="team-photo-overlay"><p>Evaluates where production, tooling, and supply chain constraints are actually limiting a client's growth before any marketing spend gets recommended. Engaged when a client's growth problem is really about capacity rather than demand. Brought in project by project, not on retainer.</p></div>
       </div>
       <div class="team-name">Charlie Manning</div>
-      <div class="team-title">Manufacturing &amp; Supply Chain Advisor</div>
+      <div class="team-title">Manufacturing and Supply Chain</div>
       <p class="team-bio">Background in manufacturing processes, production tooling, and supply chain management across business aviation and adjacent industries.</p>
+      <div class="team-email">charlie@yourwingspan.com</div>
     </div>
   </div>
 </section>
@@ -468,7 +472,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
 
 <section class="proof-section">
   <div class="reveal">
-    <p class="proof-quote">"His extensive network and Sales &amp; Marketing expertise are instrumental in helping us better understand our customers and refine our go-to-market strategy. Brooks engages effectively with industry professionals, securing valuable connections and delivering insightful market research."</p>
+    <p class="proof-quote">"Wingspan's network and go-to-market expertise gave us a sharper read on our customers and a strategy built to win. They move through this industry with real credibility, open doors most consultants can't, and deliver market research sharp enough to act on immediately."</p>
     <div class="proof-name">Sam Fishman</div>
     <div class="proof-co">AMS Aircraft Recovery</div>
   </div>
