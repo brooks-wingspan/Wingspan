@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marketing &amp; Sales Infrastructure: Wingspan Aviation Consulting</title>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500&family=IBM+Plex+Sans:wght@200;300;400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tweak-bar.css">
-<link rel="stylesheet" href="copy-brief.css">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -58,11 +56,6 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .nav-dropdown-menu a[href="ai-transformation.html"]:hover{color:var(--cerulean);}
 .nav-cta{font-family:'Archivo',sans-serif;font-size:12px;font-weight:400;background:none;color:var(--ink);border:1px solid var(--ink);padding:9px 20px;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap;}
 .nav-cta:hover{background:var(--ink);color:#fff;}
-
-/* AI PILL */
-.ai-pill{position:fixed;bottom:32px;right:32px;z-index:200;display:flex;align-items:center;gap:9px;background:var(--ink);padding:11px 18px;border-radius:4px;cursor:pointer;text-decoration:none;}
-.ai-pill-dot{width:5px;height:5px;border-radius:50%;background:var(--tb-accent);animation:pulse 2.5s ease-in-out infinite;}
-.ai-pill-text{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;color:#fff;text-transform:uppercase;}
 
 /* HERO: static image */
 .hero{position:relative;min-height:72vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 64px calc(var(--tb-pad-scale) * 80px + 70px);overflow:hidden;}
@@ -125,16 +118,10 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
   .hero{padding:0 24px 56px;}
   .intro-section,.cap-section,.cta-copy{padding-left:24px;padding-right:24px;}
   .cap-row{grid-template-columns:1fr;gap:10px;}
-  .ai-pill{bottom:140px;left:20px;right:auto;}
 }
 </style>
 </head>
 <body>
-
-<a class="ai-pill" href="ai-transformation.html">
-  <span class="ai-pill-dot"></span>
-  <span class="ai-pill-text">AI Transformation</span>
-</a>
 
 <nav>
   <a href="index.html" class="nav-wordmark"><strong>Wingspan</strong> Aviation Consulting</a>
@@ -236,7 +223,5 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
   }), {threshold:.06});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
-<script src="tweak-bar.js"></script>
-<script src="copy-brief.js"></script>
 </body>
 </html>
