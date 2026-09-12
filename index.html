@@ -213,7 +213,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-.reveal{opacity:0;transform:translateY(20px);transition:opacity 1s var(--out),transform 1s var(--out);}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .8s var(--out),transform .8s var(--out);}
 .reveal.in{opacity:1;transform:translateY(0);}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}
 
@@ -397,11 +397,11 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
   </div>
 </section>
 
-<section class="team-section reveal" id="team">
-  <div class="section-label">The Team</div>
-  <div class="value-h2" style="font-size:clamp(28px,4vw,48px);margin-bottom:0;">Built on passion for aviation.<br><em>The intersection of science and flight.</em></div>
+<section class="team-section" id="team">
+  <div class="section-label reveal">The Team</div>
+  <div class="value-h2 reveal" style="font-size:clamp(28px,4vw,48px);margin-bottom:0;">Built on passion for aviation.<br><em>The intersection of science and flight.</em></div>
   <div class="team-grid">
-    <div class="team-card">
+    <div class="team-card reveal">
       <div class="team-photo-wrap" tabindex="0">
         <img class="team-photo" src="brooks.png" alt="Brooks">
         <div class="team-photo-overlay"><p>Leads engagement strategy end to end, from initial discovery through delivery. Spends most weeks close to client operations rather than behind a desk, and prefers a small number of deep relationships over a large roster. Brings outside-industry marketing rigor without losing aviation-specific nuance.</p></div>
@@ -411,7 +411,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
       <p class="team-bio">Aviation marketing strategist with deep experience across Part 135, MRO, and business aviation broadly. Prior work: luxury hospitality, jet card sales infrastructure, enterprise MRO, completions, and FBO marketing, aviation technology go-to-market.</p>
       <div class="team-email">brooks@yourwingspan.com</div>
     </div>
-    <div class="team-card">
+    <div class="team-card reveal d1">
       <div class="team-photo-wrap" tabindex="0">
         <img class="team-photo" src="joe.png" alt="Joe Ramirez">
         <div class="team-photo-overlay"><p>Pressure-tests go-to-market plans the way a product organization would, catching gaps a marketing-only view tends to miss. Brings direct MRO operating experience alongside a product management background. Engaged project by project on product-facing work.</p></div>
@@ -421,7 +421,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
       <p class="team-bio">Principal Product Manager with prior MRO experience, engaged on projects requiring product-management rigor applied to go-to-market work.</p>
       <div class="team-email">joe@yourwingspan.com</div>
     </div>
-    <div class="team-card">
+    <div class="team-card reveal d2">
       <div class="team-photo-wrap" tabindex="0">
         <img class="team-photo" src="charlie.png" alt="Charlie Manning">
         <div class="team-photo-overlay"><p>Evaluates where production, tooling, and supply chain constraints are actually limiting a client's growth before any marketing spend gets recommended. Engaged when a client's growth problem is really about capacity rather than demand. Brought in project by project, not on retainer.</p></div>
@@ -434,13 +434,13 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
   </div>
 </section>
 
-<section class="clients-section reveal">
-  <div class="clients-bar">
+<section class="clients-section">
+  <div class="clients-bar reveal">
     <div class="section-label">Selected Clients</div>
     <div class="value-h2" style="font-size:clamp(28px,4vw,48px);margin-bottom:0;">Trusted across MRO,<br><em>recovery, FBO, and government logistics.</em></div>
   </div>
   <div class="client-grid">
-    <div class="client-card" tabindex="0">
+    <div class="client-card reveal" tabindex="0">
       <img class="client-img" src="ams2.png" alt="AMS Aircraft Recovery">
       <div class="client-scrim"></div>
       <div class="client-info">
@@ -449,7 +449,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
         <div class="client-cat">MRO / Aircraft Recovery</div>
       </div>
     </div>
-    <div class="client-card" tabindex="0">
+    <div class="client-card reveal d1" tabindex="0">
       <img class="client-img" src="age.png" alt="AGE">
       <div class="client-scrim"></div>
       <div class="client-info">
@@ -458,7 +458,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
         <div class="client-cat">Government / Military Logistics</div>
       </div>
     </div>
-    <div class="client-card" tabindex="0">
+    <div class="client-card reveal d2" tabindex="0">
       <img class="client-img" src="fbo.png" alt="Confidential Client">
       <div class="client-scrim"></div>
       <div class="client-info">
