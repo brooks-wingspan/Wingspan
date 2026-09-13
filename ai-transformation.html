@@ -58,7 +58,7 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .nav-cta:hover{background:var(--ink);color:#fff;}
 
 /* SECTION NAV: wayfinding strip for the long-form page below the hero */
-.section-nav{position:sticky;top:0;z-index:90;display:flex;gap:36px;padding:18px 64px;background:rgba(235,255,246,.88);backdrop-filter:blur(8px);border-bottom:1px solid rgba(141,199,195,.35);opacity:0;transform:translateY(-100%);transition:opacity .3s var(--out),transform .3s var(--out);pointer-events:none;}
+.section-nav{position:sticky;top:0;z-index:90;display:flex;justify-content:flex-end;gap:36px;padding:18px 64px;background:rgba(235,255,246,.88);backdrop-filter:blur(8px);border-bottom:1px solid rgba(141,199,195,.35);opacity:0;transform:translateY(-100%);transition:opacity .3s var(--out),transform .3s var(--out);pointer-events:none;}
 .section-nav.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
 .section-nav a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent;white-space:nowrap;}
 .section-nav a:hover{color:var(--tb-heading-color);}
@@ -81,51 +81,31 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .term-tags{display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:1;}
 .term-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--tb-heading-color);background:rgba(255,255,255,.6);border:1px solid rgba(141,199,195,.5);padding:6px 13px;}
 
-/* HOW IT WORKS: right-to-left converging diagram replacing the flat spec sheet */
-.how-section{padding:calc(var(--tb-pad-scale) * 70px) 64px;border-bottom:1px solid rgba(141,199,195,.3);}
-.how-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;color:rgba(37,150,190,.75);text-transform:uppercase;margin-bottom:16px;}
-.how-h2{font-family:'Space Mono',monospace;font-size:clamp(20px,2.6vw,32px);color:var(--tb-heading-color);letter-spacing:0;line-height:1.3;max-width:640px;margin-bottom:56px;}
-.how-h2 .accent{color:var(--cerulean);}
-.diagram-wrap{position:relative;width:100%;max-width:1100px;margin:0 auto;height:340px;}
-.diagram-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
-.diagram-svg path{fill:none;stroke:var(--cerulean);stroke-width:1.5;opacity:.55;}
-.diagram-input{position:absolute;transform:translate(0,-50%);display:flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.04em;color:var(--tb-heading-color);text-transform:uppercase;opacity:0;transition:opacity .5s var(--out);white-space:nowrap;}
-.diagram-input.in{opacity:1;}
-.diagram-input-dot{width:6px;height:6px;border-radius:50%;background:var(--cerulean);flex-shrink:0;}
-.diagram-hub{position:absolute;left:60px;top:50%;transform:translate(0,-50%);width:168px;height:168px;border-radius:50%;background:var(--glass);border:1px solid rgba(37,150,190,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;opacity:0;transform:translate(0,-50%) scale(.85);transition:opacity .6s var(--out),transform .6s var(--out),border-color .6s var(--out),box-shadow .6s var(--out);}
-.diagram-hub.in{opacity:1;transform:translate(0,-50%) scale(1);border-color:rgba(37,150,190,.7);box-shadow:0 16px 40px rgba(16,20,24,.1);}
-.diagram-hub-label{font-family:'Space Mono',monospace;font-size:11px;color:var(--cerulean);letter-spacing:.02em;line-height:1.4;margin-bottom:8px;}
-.diagram-hub-status{font-family:'Space Mono',monospace;font-size:8.5px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;}
-.spec-cursor{display:inline-block;width:5px;height:9px;background:var(--cerulean);opacity:.9;vertical-align:middle;margin-left:2px;animation:blink .8s step-end infinite;}
-@media(max-width:900px){
-  .diagram-wrap{height:auto;padding:20px 0;}
-  .diagram-svg{display:none;}
-  .diagram-input{position:static;transform:none;opacity:1;margin-bottom:14px;}
-  .diagram-hub{position:static;transform:none;width:100%;height:auto;border-radius:12px;margin-top:20px;opacity:1;padding:28px;}
-  .diagram-hub.in{transform:none;}
-}
+/* SPEC PANEL: stays on the same stable mint canvas as the rest of the page (no internal hard cuts) */
+.spec-section{padding:56px 64px;border-bottom:1px solid rgba(141,199,195,.3);}
+.spec-header{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;color:rgba(37,150,190,.75);text-transform:uppercase;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid rgba(141,199,195,.3);}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 64px;max-width:1100px;}
+.spec-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px dotted rgba(141,199,195,.25);padding-bottom:12px;}
+.sk{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.02em;color:var(--muted);}
+.sv{font-family:'Space Mono',monospace;font-size:10px;color:var(--tb-heading-color);text-align:right;}
+.sv-c{font-family:'Space Mono',monospace;font-size:10px;color:var(--cerulean);text-align:right;}
+.spec-cursor{display:inline-block;width:5px;height:11px;background:var(--cerulean);opacity:.9;vertical-align:middle;margin-left:2px;animation:blink .8s step-end infinite;}
 
-/* CAPABILITY RECORDS: dim until scrolled into focus, then brighten */
+/* CAPABILITY RECORDS */
 .records-section{padding:calc(var(--tb-pad-scale) * 60px) 64px;border-bottom:1px solid rgba(141,199,195,.3);}
 .records-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;color:rgba(37,150,190,.75);text-transform:uppercase;margin-bottom:32px;}
-.record{padding:28px 0;border-top:1px solid rgba(141,199,195,.25);display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:start;opacity:.32;transition:opacity .7s var(--out);}
+.record{padding:28px 0;border-top:1px solid rgba(141,199,195,.25);display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:start;}
 .record:first-of-type{border-top:none;}
-.record.in{opacity:1;}
 .record-title{font-family:'Space Mono',monospace;font-size:14px;color:var(--tb-heading-color);letter-spacing:.02em;}
 .record-title::before{content:'$ ';color:var(--cerulean);}
 .record-desc{font-family:'Space Mono',monospace;font-size:12px;color:var(--tb-body-color);opacity:.85;line-height:1.9;font-weight:400;}
 
-/* HISTORY TIMELINE: proportional-by-year dot strip, showing recent acceleration through spacing itself */
+/* HISTORY TIMELINE: continuous prose, Jet Aviation format, set in the terminal typeface */
 .history-section{padding:calc(var(--tb-pad-scale) * 60px) 64px;border-bottom:1px solid rgba(141,199,195,.3);}
-.history-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;color:rgba(37,150,190,.75);text-transform:uppercase;margin-bottom:48px;}
-.timeline-strip{position:relative;max-width:1100px;height:2px;background:rgba(141,199,195,.35);margin:0 0 56px;}
-.timeline-mark{position:absolute;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;border-radius:50%;background:var(--cerulean);opacity:0;transition:opacity .5s var(--out),transform .5s var(--out);}
-.timeline-mark.in{opacity:1;}
-.history-list{display:flex;flex-direction:column;gap:22px;max-width:900px;}
-.history-item{display:grid;grid-template-columns:64px 1fr;gap:24px;opacity:.4;transition:opacity .6s var(--out);}
-.history-item.in{opacity:1;}
-.history-item-year{font-family:'Space Mono',monospace;font-size:12px;color:var(--cerulean);padding-top:2px;}
-.history-item-desc{font-family:'Archivo',sans-serif;font-size:15px;font-weight:200;color:var(--tb-heading-color);line-height:1.7;}
+.history-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;color:rgba(37,150,190,.75);text-transform:uppercase;margin-bottom:36px;}
+.history-prose{font-family:'Space Mono',monospace;font-size:clamp(13px,1.3vw,16px);font-weight:400;color:var(--tb-heading-color);line-height:2.1;max-width:1100px;}
+.history-prose sup{font-family:'Space Mono',monospace;font-size:9px;font-weight:400;color:var(--cerulean);vertical-align:super;margin-left:2px;}
+.history-slash{color:var(--muted);margin:0 12px;}
 
 /* CTA */
 .cta-section{padding:calc(var(--tb-pad-scale) * 90px) 64px;text-align:left;}
@@ -155,10 +135,9 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
   nav{padding:24px 24px;}
   .nl{display:none;}
   .section-nav{display:none;}
-  .term-hero,.how-section,.records-section,.history-section,.cta-section{padding:40px 24px;}
+  .term-hero,.spec-section,.records-section,.history-section,.cta-section{padding:40px 24px;}
+  .spec-grid{grid-template-columns:1fr;}
   .record{grid-template-columns:1fr;gap:8px;}
-  .timeline-strip{display:none;}
-  .history-item{grid-template-columns:52px 1fr;}
 }
 </style>
 </head>
@@ -204,28 +183,23 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
   </div>
 </section>
 
-<section class="how-section reveal" id="how-it-works">
-  <div class="how-label">// how it works</div>
-  <div class="how-h2">Three inputs. <span class="accent">One intelligence layer.</span></div>
-  <div class="diagram-wrap" id="diagram-wrap">
-    <svg class="diagram-svg" id="diagram-svg"></svg>
-    <div class="diagram-hub" id="diagram-hub">
-      <div class="diagram-hub-label">Wingspan<br>AI Layer</div>
-      <div class="diagram-hub-status">Accepting new clients<span class="spec-cursor"></span></div>
-    </div>
-    <div class="diagram-input" id="input-1" style="top:16%;right:0;">
-      <span>CRM &amp; Deal Data</span><span class="diagram-input-dot"></span>
-    </div>
-    <div class="diagram-input" id="input-2" style="top:50%;right:0;">
-      <span>Aviation Domain Knowledge</span><span class="diagram-input-dot"></span>
-    </div>
-    <div class="diagram-input" id="input-3" style="top:84%;right:0;">
-      <span>Sales Workflow Signals</span><span class="diagram-input-dot"></span>
-    </div>
+<section class="spec-section reveal" id="how-it-works">
+  <div class="spec-header">// WINGSPAN_AI_TRANSFORMATION.sys: spec</div>
+  <div class="spec-grid">
+    <div class="spec-row"><span class="sk">SERVICE</span><span class="sv">AI Applied to Marketing &amp; Sales</span></div>
+    <div class="spec-row"><span class="sk">FOCUS</span><span class="sv-c">EFFICIENCY</span></div>
+    <div class="spec-row"><span class="sk">SECTOR</span><span class="sv">Aviation · Part 135 · MRO · FBO</span></div>
+    <div class="spec-row"><span class="sk">LEAD_SCORE_SYS</span><span class="sv">Predictive · trained on your deal data</span></div>
+    <div class="spec-row"><span class="sk">SALES_INTEL</span><span class="sv">Real-time · Competitor signals</span></div>
+    <div class="spec-row"><span class="sk">AUTOMATION</span><span class="sv">Outreach · Nurture · Re-engage</span></div>
+    <div class="spec-row"><span class="sk">CONTENT_SYS</span><span class="sv">AI-generated · Brand-calibrated</span></div>
+    <div class="spec-row"><span class="sk">CRM_LAYER</span><span class="sv">Intelligence overlay · Next-best-action</span></div>
+    <div class="spec-row"><span class="sk">TIMELINE</span><span class="sv">First result in 6–8 wks</span></div>
+    <div class="spec-row"><span class="sk">STATUS</span><span class="sv-c">ACCEPTING NEW CLIENTS<span class="spec-cursor"></span></span></div>
   </div>
 </section>
 
-<section class="records-section" id="capabilities">
+<section class="records-section reveal" id="capabilities">
   <div class="records-label">// capability records</div>
   <div class="record">
     <div class="record-title">predictive_scoring</div>
@@ -251,26 +225,23 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
 
 <section class="history-section reveal" id="timeline">
   <div class="history-label">// brief history of AI in marketing</div>
-  <div class="timeline-strip" id="timeline-strip">
-    <div class="timeline-mark" data-year="1998" style="left:0%;"></div>
-    <div class="timeline-mark" data-year="2011" style="left:46.4%;"></div>
-    <div class="timeline-mark" data-year="2020" style="left:78.6%;"></div>
-    <div class="timeline-mark" data-year="2021" style="left:82.1%;"></div>
-    <div class="timeline-mark" data-year="2022" style="left:85.7%;"></div>
-    <div class="timeline-mark" data-year="2026" style="left:100%;"></div>
-  </div>
-  <div class="history-list">
-    <div class="history-item"><div class="history-item-year">1998</div><div class="history-item-desc">Amazon deploys one of the first AI-driven recommendation engines at commercial scale.</div></div>
-    <div class="history-item"><div class="history-item-year">2011</div><div class="history-item-desc">IBM Watson beats human champions on Jeopardy!, the first mainstream demonstration of AI reasoning.</div></div>
-    <div class="history-item"><div class="history-item-year">2020</div><div class="history-item-desc">Garmin Autoland receives FAA certification on the Piper M600, the first general aviation autoland system certified to operate with no pilot input.</div></div>
-    <div class="history-item"><div class="history-item-year">2021</div><div class="history-item-desc">Apple's App Tracking Transparency update ends default third-party ad tracking, forcing a shift to first-party data and AI-driven modeling.</div></div>
-    <div class="history-item"><div class="history-item-year">2022</div><div class="history-item-desc">ChatGPT launches, bringing generative AI into everyday content and email marketing.</div></div>
-    <div class="history-item"><div class="history-item-year">2026</div><div class="history-item-desc">NATA and Embry-Riddle launch the first AI Symposium for Business Aviation.</div></div>
+  <div class="history-prose">
+    Amazon deploys one of the first AI-driven recommendation engines at commercial scale<sup>1998</sup>
+    <span class="history-slash">/</span>
+    IBM Watson beats human champions on Jeopardy!, the first mainstream demonstration of AI reasoning<sup>2011</sup>
+    <span class="history-slash">/</span>
+    Garmin Autoland receives FAA certification on the Piper M600, the first general aviation autoland system certified to operate with no pilot input<sup>2020</sup>
+    <span class="history-slash">/</span>
+    Apple's App Tracking Transparency update ends default third-party ad tracking, forcing a shift to first-party data and AI-driven modeling<sup>2021</sup>
+    <span class="history-slash">/</span>
+    ChatGPT launches, bringing generative AI into everyday content and email marketing<sup>2022</sup>
+    <span class="history-slash">/</span>
+    NATA and Embry-Riddle launch the first AI Symposium for Business Aviation<sup>2026</sup>
   </div>
 </section>
 
 <section class="cta-section reveal" id="start">
-  <div class="cta-h2">Your data, connected to <span class="accent">the AI layer.</span></div>
+  <div class="cta-h2">AI, built into <span class="accent">how you actually sell.</span></div>
   <p class="cta-p">6–8 week deployment. Retainer available. Let's talk about what AI transformation looks like inside your marketing and sales operation.</p>
   <div class="cta-row">
     <a class="btn-term" href="contact.html">$ contact --start</a>
@@ -292,11 +263,6 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
     if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
   }), {threshold:.06});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  const dimIo = new IntersectionObserver(entries => entries.forEach(e => {
-    if(e.isIntersecting){e.target.classList.add('in');dimIo.unobserve(e.target);}
-  }), {threshold:.3});
-  document.querySelectorAll('.record, .timeline-mark, .history-item').forEach(el => dimIo.observe(el));
 
   const sectionNav = document.getElementById('section-nav');
   const mainNav = document.querySelector('nav');
@@ -323,71 +289,6 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
   window.addEventListener('resize', positionSectionNav);
   positionSectionNav();
   updateSectionNav();
-
-  let diagramRevealed = false;
-  function buildDiagram(){
-    const wrap = document.getElementById('diagram-wrap');
-    const svg = document.getElementById('diagram-svg');
-    const hub = document.getElementById('diagram-hub');
-    if(!wrap || !svg || !hub) return [];
-    const wrapRect = wrap.getBoundingClientRect();
-    if(wrapRect.width < 1) return [];
-    svg.setAttribute('viewBox', '0 0 ' + wrapRect.width + ' ' + wrapRect.height);
-    svg.innerHTML = '';
-    const hubRect = hub.getBoundingClientRect();
-    const hubX = hubRect.left - wrapRect.left + hubRect.width / 2;
-    const hubY = hubRect.top - wrapRect.top + hubRect.height / 2;
-    const paths = [];
-    ['input-1','input-2','input-3'].forEach(id => {
-      const el = document.getElementById(id);
-      const dot = el.querySelector('.diagram-input-dot');
-      const dotRect = dot.getBoundingClientRect();
-      const startX = dotRect.left - wrapRect.left + dotRect.width / 2;
-      const startY = dotRect.top - wrapRect.top + dotRect.height / 2;
-      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
-      const midX = hubX + (startX - hubX) * 0.5;
-      path.setAttribute('d', 'M ' + startX + ' ' + startY + ' C ' + midX + ' ' + startY + ', ' + midX + ' ' + hubY + ', ' + hubX + ' ' + hubY);
-      svg.appendChild(path);
-      paths.push(path);
-    });
-    paths.forEach(path => {
-      const len = path.getTotalLength();
-      path.style.transition = 'none';
-      if(diagramRevealed){
-        path.style.strokeDasharray = 'none';
-        path.style.strokeDashoffset = '0';
-      } else {
-        path.style.strokeDasharray = len;
-        path.style.strokeDashoffset = len;
-      }
-    });
-    return paths;
-  }
-  function animateDiagram(){
-    if(diagramRevealed) return;
-    diagramRevealed = true;
-    const paths = buildDiagram();
-    document.querySelectorAll('.diagram-input').forEach((el,i) => {
-      setTimeout(() => el.classList.add('in'), i * 150);
-    });
-    paths.forEach((path,i) => {
-      setTimeout(() => {
-        path.style.transition = 'stroke-dashoffset 1.1s cubic-bezier(.33,1,.68,1)';
-        path.style.strokeDashoffset = '0';
-      }, i * 150);
-    });
-    setTimeout(() => document.getElementById('diagram-hub').classList.add('in'), 700);
-  }
-  buildDiagram();
-  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(buildDiagram); }
-  window.addEventListener('resize', buildDiagram);
-  const diagramWrapEl = document.getElementById('diagram-wrap');
-  if(diagramWrapEl){
-    const diagramObserver = new IntersectionObserver(entries => entries.forEach(e => {
-      if(e.isIntersecting){ animateDiagram(); diagramObserver.unobserve(e.target); }
-    }), {threshold:.25});
-    diagramObserver.observe(diagramWrapEl);
-  }
 </script>
 </body>
 </html>
