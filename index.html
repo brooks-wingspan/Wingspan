@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wingspan Aviation Consulting</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500&family=IBM+Plex+Sans:wght@200;300;400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500&family=IBM+Plex+Sans:wght@200;300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -109,33 +109,44 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .band-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--tb-accent);text-transform:uppercase;position:relative;z-index:1;}
 .band-title{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * clamp(28px,4vw,48px));font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);letter-spacing:calc(-.02em + var(--tb-ls));line-height:calc(1.2 * var(--tb-lh));position:relative;z-index:1;}
 .band-right{font-size:14px;font-weight:300;color:var(--muted);max-width:520px;line-height:1.8;position:relative;z-index:1;}
-.band-glow{position:absolute;left:50%;bottom:-40%;transform:translateX(-50%);width:140%;height:220px;background:radial-gradient(ellipse at center, rgba(141,199,195,.35) 0%, rgba(141,199,195,0) 70%);pointer-events:none;}
+.band-glow{position:absolute;left:50%;bottom:-40%;transform:translateX(-50%);width:140%;height:220px;background:radial-gradient(ellipse at center, rgba(141,199,195,.35) 0%, rgba(141,199,195,0) 32%);pointer-events:none;}
 
 /* AI SECTION: a stable, uniform mint canvas (no internal white restart); ambient glows carry the depth so the page reads as one clean white→mint→white arc, not a repeated transition. */
-.ai-full{position:relative;overflow:hidden;}
+.ai-full{position:relative;overflow:hidden;padding:56px 64px 90px;}
 .ai-full::before{content:'';position:absolute;top:-10%;left:30%;width:90%;height:340px;background:radial-gradient(ellipse at center, rgba(141,199,195,.4) 0%, rgba(141,199,195,0) 70%);pointer-events:none;z-index:0;animation:ai-drift-a 22s ease-in-out infinite;}
 .ai-full::after{content:'';position:absolute;bottom:-20%;left:-15%;width:70%;height:380px;background:radial-gradient(ellipse at center, rgba(37,150,190,.14) 0%, rgba(37,150,190,0) 72%);pointer-events:none;z-index:0;animation:ai-drift-b 26s ease-in-out infinite;}
+.ai-streak{position:absolute;border-radius:50%;filter:blur(16px);opacity:.4;pointer-events:none;z-index:0;}
+.ai-streak-a{width:1200px;height:70px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent);top:2%;left:-18%;transform:rotate(-13deg);}
+.ai-streak-b{width:820px;height:46px;background:linear-gradient(90deg,transparent,rgba(235,255,246,.75),transparent);bottom:10%;right:-12%;transform:rotate(10deg);}
+.ai-window{position:relative;z-index:1;max-width:1400px;margin:0 auto;background:var(--glass);border:2px solid var(--ink);box-shadow:6px 6px 0 rgba(16,20,24,.32);}
+.ai-titlebar{background:linear-gradient(90deg,#186384 0%,var(--cerulean) 55%,var(--celadon) 100%);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--ink);}
+.ai-titletext{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#fff;letter-spacing:.08em;}
+.ai-winctl{display:flex;gap:4px;}
+.ai-winctl span{width:17px;height:15px;background:var(--glass);border:1px solid var(--ink);border-top-color:#fff;border-left-color:#fff;font-family:'Space Mono',monospace;font-size:10px;line-height:13px;text-align:center;color:var(--ink);display:block;}
+.ai-taskbar{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:linear-gradient(180deg,#d3ece7,var(--celadon));border-top:2px solid var(--ink);padding:18px 40px;}
 @keyframes ai-drift-a{0%,100%{opacity:.75;transform:translate(0,0) scale(1);}50%{opacity:1;transform:translate(-3%,2%) scale(1.08);}}
 @keyframes ai-drift-b{0%,100%{opacity:.7;transform:translate(0,0) scale(1);}50%{opacity:1;transform:translate(3%,-2%) scale(1.1);}}
 @media(prefers-reduced-motion:reduce){.ai-full::before,.ai-full::after{animation:none;}}
 .transition-exit{height:calc(var(--tb-pad-scale) * 70px);}
-.ai-inner{display:grid;grid-template-columns:1fr 1fr;max-width:1400px;margin:0 auto;position:relative;z-index:1;}
-.ai-left{padding:80px 64px;display:flex;flex-direction:column;}
-.ai-badge{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--cerulean);margin-bottom:28px;}
+.ai-inner{display:grid;grid-template-columns:1fr 1fr;position:relative;z-index:1;}
+.ai-left{padding:64px 56px;display:flex;flex-direction:column;}
+.ai-badge{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cerulean-text);margin-bottom:28px;}
 .ai-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--cerulean);animation:pulse 2.5s ease-in-out infinite;}
-.ai-num{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(37,150,190,.55);margin-bottom:20px;}
-.ai-header-main{font-family:'Space Mono',monospace;font-size:clamp(30px,4vw,56px);color:var(--cerulean);letter-spacing:0;line-height:1;margin-bottom:8px;}
-.ai-header-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--tb-heading-color);letter-spacing:.18em;opacity:.75;margin-bottom:32px;text-transform:uppercase;}
-.ai-desc{font-family:'Space Mono',monospace;font-size:12.5px;font-weight:400;color:var(--tb-body-color);line-height:2;margin-bottom:32px;max-width:420px;opacity:.85;}
-.ai-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px;}
-.ai-tag{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--tb-heading-color);background:rgba(255,255,255,.6);border:1px solid rgba(141,199,195,.5);padding:5px 11px;}
-.ai-cta{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--cerulean);margin-top:auto;}
-.ai-right{padding:80px 64px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(141,199,195,.4);background:#FFFFFF;}
-.spec-header{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:.12em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:22px;padding-bottom:12px;border-bottom:1px solid rgba(141,199,195,.35);}
-.spec-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:15px;}
-.sk{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.02em;color:var(--muted-text);}
-.sv{font-family:'Space Mono',monospace;font-size:9px;color:var(--tb-heading-color);text-align:right;}
-.sv-c{font-family:'Space Mono',monospace;font-size:9px;color:var(--cerulean-text);text-align:right;}
+.ai-num{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted-text);margin-bottom:20px;}
+.ai-header-main{font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(64px,7vw,112px);color:var(--cerulean);text-shadow:2px 2px 0 var(--celadon),4px 4px 0 var(--ink);line-height:.88;letter-spacing:0;margin-bottom:16px;}
+.ai-header-sub{font-family:'Space Mono',monospace;font-size:11px;color:var(--ink);letter-spacing:.18em;opacity:.8;margin-bottom:32px;text-transform:uppercase;}
+.ai-desc{font-family:'Space Mono',monospace;font-size:14px;font-weight:400;color:var(--muted-text);line-height:1.9;margin-bottom:0;max-width:440px;}
+.ai-tags{display:flex;flex-wrap:wrap;gap:10px;}
+.ai-tag{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);background:var(--glass);border:2px solid var(--ink);border-top-color:#fff;border-left-color:#fff;box-shadow:2px 2px 0 rgba(16,20,24,.35);padding:8px 14px;}
+.ai-cta{display:inline-block;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);background:#fff;border:2px solid var(--ink);border-top-color:#fff;border-left-color:#fff;box-shadow:2px 2px 0 rgba(16,20,24,.4);padding:11px 20px;white-space:nowrap;transition:transform .3s var(--out);}
+.ai-cta:hover{transform:scale(1.06);}
+.ai-cta:active{box-shadow:none;transform:translate(2px,2px) scale(1);}
+.ai-right{padding:64px 56px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(141,199,195,.4);background:#FFFFFF;}
+.spec-header{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:22px;padding-bottom:12px;border-bottom:1px solid rgba(141,199,195,.35);}
+.spec-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;gap:20px;}
+.sk{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.02em;color:var(--muted-text);}
+.sv{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--tb-heading-color);text-align:right;}
+.sv-c{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--cerulean-text);text-align:right;}
 .spec-cursor{display:inline-block;width:5px;height:11px;background:var(--cerulean);opacity:.9;vertical-align:middle;margin-left:2px;animation:blink .8s step-end infinite;}
 
 /* TIMELINE */
@@ -153,6 +164,7 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .team-photo{width:100%;aspect-ratio:1/1;background:var(--fill);display:block;object-fit:cover;object-position:center top;transform-origin:center top;}
 .team-photo[src="brooks.png"]{transform:scale(1.16);}
 .team-photo[src="charlie.png"]{transform:scale(1.38);}
+.team-photo[src="joenew.png"]{object-position:center 22%;transform-origin:center center;transform:scale(1.3);}
 .team-photo-overlay{position:absolute;inset:0;background:rgba(16,20,24,.92);opacity:0;transition:opacity .3s var(--out);display:flex;align-items:flex-start;padding:30px;}
 .team-photo-overlay p{font-family:var(--tb-font-body);font-size:14.5px;color:rgba(255,255,255,.92);line-height:1.8;font-weight:300;}
 .team-name{font-family:var(--tb-font-heading);font-size:calc(var(--tb-heading-scale) * 27px);font-weight:var(--tb-heading-weight);color:var(--tb-heading-color);margin-bottom:6px;letter-spacing:calc(-.01em + var(--tb-ls));}
@@ -354,13 +366,33 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
 </div>
 
 <div class="ai-full reveal" id="ai-section">
-  <div class="ai-inner">
-    <div class="ai-left">
-      <div class="ai-badge"><span class="ai-badge-dot"></span>High Efficiency</div>
-      <div class="ai-num">04</div>
-      <div class="ai-header-main">AI</div>
-      <div class="ai-header-sub">For Marketing &amp; Sales Workflows</div>
-      <p class="ai-desc">The same predictive lead scoring, automated nurture, and AI-assisted content systems that power the biggest tech and enterprise sales teams, built for the scale of a business aviation company, and focused on one outcome: efficiency. We start with the workflow costing your team the most time, usually lead response or content production, and make it faster within weeks. No platform overhaul required to get there.</p>
+  <div class="ai-streak ai-streak-a"></div>
+  <div class="ai-streak ai-streak-b"></div>
+  <div class="ai-window">
+    <div class="ai-titlebar">
+      <span class="ai-titletext">AI_TRANSFORMATION.SYS</span>
+      <div class="ai-winctl"><span>_</span><span>□</span><span>X</span></div>
+    </div>
+    <div class="ai-inner">
+      <div class="ai-left">
+        <div class="ai-badge"><span class="ai-badge-dot"></span>High Efficiency</div>
+        <div class="ai-num">04</div>
+        <div class="ai-header-main">AI</div>
+        <div class="ai-header-sub">For Marketing &amp; Sales Workflows</div>
+        <p class="ai-desc">The same predictive lead scoring, automated nurture, and AI-assisted content systems that power the biggest tech and enterprise sales teams, built for the scale of a business aviation company, and focused on one outcome: efficiency. We start with the workflow costing your team the most time, usually lead response or content production, and make it faster within weeks. No platform overhaul required to get there.</p>
+      </div>
+      <div class="ai-right">
+        <div class="spec-header">// WINGSPAN_AI_TRANSFORMATION.sys</div>
+        <div class="spec-row"><span class="sk">SERVICE</span><span class="sv">AI Applied to Marketing &amp; Sales</span></div>
+        <div class="spec-row"><span class="sk">FOCUS</span><span class="sv-c">EFFICIENCY</span></div>
+        <div class="spec-row"><span class="sk">PRACTICES</span><span class="sv">Predictive scoring · Automated nurture · AI content</span></div>
+        <div class="spec-row"><span class="sk">SECTOR</span><span class="sv">Aviation · Part 135 · MRO · FBO</span></div>
+        <div class="spec-row"><span class="sk">TIMELINE</span><span class="sv">First result in 6–8 wks</span></div>
+        <div class="spec-row"><span class="sk">MODEL</span><span class="sv">Project or retainer</span></div>
+        <div class="spec-row"><span class="sk">STATUS</span><span class="sv-c">ACCEPTING NEW CLIENTS<span class="spec-cursor"></span></span></div>
+      </div>
+    </div>
+    <div class="ai-taskbar">
       <div class="ai-tags">
         <span class="ai-tag">Predictive Scoring</span>
         <span class="ai-tag">Automated Nurture</span>
@@ -368,16 +400,6 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
         <span class="ai-tag">Efficiency</span>
       </div>
       <a class="ai-cta" href="ai-transformation.html" style="text-decoration:none;">Explore this practice →</a>
-    </div>
-    <div class="ai-right">
-      <div class="spec-header">// WINGSPAN_AI_TRANSFORMATION.sys</div>
-      <div class="spec-row"><span class="sk">SERVICE</span><span class="sv">AI Applied to Marketing &amp; Sales</span></div>
-      <div class="spec-row"><span class="sk">FOCUS</span><span class="sv-c">EFFICIENCY</span></div>
-      <div class="spec-row"><span class="sk">PRACTICES</span><span class="sv">Predictive scoring · Automated nurture · AI content</span></div>
-      <div class="spec-row"><span class="sk">SECTOR</span><span class="sv">Aviation · Part 135 · MRO · FBO</span></div>
-      <div class="spec-row"><span class="sk">TIMELINE</span><span class="sv">First result in 6–8 wks</span></div>
-      <div class="spec-row"><span class="sk">MODEL</span><span class="sv">Project or retainer</span></div>
-      <div class="spec-row"><span class="sk">STATUS</span><span class="sv-c">ACCEPTING NEW CLIENTS<span class="spec-cursor"></span></span></div>
     </div>
   </div>
 </div>
@@ -409,31 +431,31 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
     <div class="team-card reveal">
       <div class="team-photo-wrap" tabindex="0">
         <img class="team-photo" src="brooks.png" alt="Brooks">
-        <div class="team-photo-overlay"><p>Leads engagement strategy end to end, from initial discovery through delivery. Spends most weeks close to client operations rather than behind a desk, and prefers a small number of deep relationships over a large roster. Brings outside-industry marketing rigor without losing aviation-specific nuance.</p></div>
+        <div class="team-photo-overlay"><p>Leads engagement strategy end to end, from initial discovery through delivery, with a background spanning SaaS, travel, and aviation technology go-to-market. Spends most weeks close to client operations rather than behind a desk, and prefers a small number of deep relationships over a large roster.</p></div>
       </div>
-      <div class="team-name">Brooks</div>
+      <div class="team-name">Brooks Taylor</div>
       <div class="team-title">Founder &amp; Principal</div>
-      <p class="team-bio">Aviation marketing strategist with deep experience across Part 135, MRO, and business aviation broadly. Prior work: luxury hospitality, jet card sales infrastructure, enterprise MRO, completions, and FBO marketing, aviation technology go-to-market.</p>
+      <p class="team-bio">SaaS and travel-industry background, with a specialty in the customer programs that keep complex, high-touch accounts renewing. Has taken aviation software to market from the ground up, alongside operating experience across Part 135, MRO, and FBO marketing — big-tech customer rigor applied to a relationship-driven industry that rarely gets it.</p>
       <div class="team-email">brooks@yourwingspan.com</div>
     </div>
     <div class="team-card reveal d1">
       <div class="team-photo-wrap" tabindex="0">
-        <img class="team-photo" src="joe.png" alt="Joe Ramirez">
-        <div class="team-photo-overlay"><p>Pressure-tests go-to-market plans the way a product organization would, catching gaps a marketing-only view tends to miss. Brings direct MRO operating experience alongside a product management background. Engaged project by project on product-facing work.</p></div>
+        <img class="team-photo" src="joenew.png" alt="Joe Ramirez">
+        <div class="team-photo-overlay"><p>Pressure-tests go-to-market plans the way a product organization would, catching gaps a marketing-only view tends to miss. Built his career inside maintenance software and MRO operations, and brings that operating reality to product-facing engagements. Engaged project by project.</p></div>
       </div>
       <div class="team-name">Joe Ramirez</div>
       <div class="team-title">Product Management</div>
-      <p class="team-bio">Principal Product Manager with prior MRO experience, engaged on projects requiring product-management rigor applied to go-to-market work.</p>
+      <p class="team-bio">Principal Product Manager who has spent his career inside maintenance software — the systems that track airworthiness, parts, and turnaround time for MRO operations. Brought in when a go-to-market plan needs to survive contact with how maintenance teams actually work, not just how a deck says they should.</p>
       <div class="team-email">joe@yourwingspan.com</div>
     </div>
     <div class="team-card reveal d2">
       <div class="team-photo-wrap" tabindex="0">
         <img class="team-photo" src="charlie.png" alt="Charlie Manning">
-        <div class="team-photo-overlay"><p>Evaluates where production, tooling, and supply chain constraints are actually limiting a client's growth before any marketing spend gets recommended. Engaged when a client's growth problem is really about capacity rather than demand. Brought in project by project, not on retainer.</p></div>
+        <div class="team-photo-overlay"><p>Evaluates where production, tooling, and supply chain constraints are actually limiting a client's growth before any marketing spend gets recommended. Spent his career on the manufacturing floor before the boardroom. Brought in project by project, not on retainer.</p></div>
       </div>
       <div class="team-name">Charlie Manning</div>
       <div class="team-title">Manufacturing and Supply Chain</div>
-      <p class="team-bio">Background in manufacturing processes, production tooling, and supply chain management across business aviation and adjacent industries.</p>
+      <p class="team-bio">Spent his career on the manufacturing floor before the boardroom — production tooling, parts flow, and the supply chain constraints that actually cap a shop's throughput. Called in when a client's growth problem turns out to be a capacity problem wearing a marketing costume.</p>
       <div class="team-email">charlie@yourwingspan.com</div>
     </div>
   </div>
@@ -569,6 +591,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
       for(var i=0;i<stops.length-1;i++){
         if(pct>=stops[i].pct && pct<=stops[i+1].pct){
           var t=(pct-stops[i].pct)/(stops[i+1].pct-stops[i].pct);
+          t = t*t*(3-2*t); // smoothstep: zero slope at each keypoint so segments meet with no visible seam
           return lerpRGB(stops[i].rgb, stops[i+1].rgb, t);
         }
       }
@@ -604,14 +627,16 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
         {pct:100, rgb:WHITE}
       ];
 
-      zone.style.background = 'linear-gradient(180deg, ' + stops.map(function(s){
+      var dense = [];
+      for(var p=0;p<=100;p+=2){ dense.push({pct:p, rgb:sampleStops(stops, p)}); }
+      zone.style.background = 'linear-gradient(180deg, ' + dense.map(function(s){
         return rgbStr(s.rgb) + ' ' + s.pct.toFixed(2) + '%';
       }).join(', ') + ')';
 
       // text legibility: for each element that sits directly on the zone's gradient (not on its
       // own opaque card), compute the *actual* local background color at that element's fixed
       // position, then pick whichever of white/cerulean has real, measured higher contrast there.
-      var awareEls = zone.querySelectorAll('.band-eyebrow, .band-title, .ai-badge, .ai-num, .ai-header-main, .ai-header-sub, .ai-desc, .ai-cta');
+      var awareEls = zone.querySelectorAll('.band-eyebrow, .band-title');
       awareEls.forEach(function(el){
         var r = el.getBoundingClientRect();
         var centerAbs = r.top + r.height/2 + window.scrollY;

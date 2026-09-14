@@ -65,59 +65,72 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .section-nav a:hover{color:var(--tb-heading-color);}
 .section-nav a.active{color:var(--cerulean-text);border-bottom-color:var(--cerulean);}
 
-/* TERMINAL HERO: one clean white→mint transition right below the nav; a stable mint canvas carries the rest of the page (no repeated gradients) */
-.term-hero{padding:calc(var(--tb-pad-scale) * 90px) 64px calc(var(--tb-pad-scale) * 70px);background:linear-gradient(180deg, var(--tb-bg-primary) 0%, #F8F9FA 30%, var(--glass) 100%);border-bottom:1px solid rgba(141,199,195,.3);position:relative;overflow:hidden;}
-.term-hero::before{content:'';position:absolute;top:-10%;left:30%;width:90%;height:340px;background:radial-gradient(ellipse at center, rgba(141,199,195,.4) 0%, rgba(141,199,195,0) 70%);pointer-events:none;z-index:0;animation:ai-drift-a 22s ease-in-out infinite;}
-.term-hero::after{content:'';position:absolute;bottom:-20%;left:-15%;width:70%;height:380px;background:radial-gradient(ellipse at center, rgba(37,150,190,.14) 0%, rgba(37,150,190,0) 72%);pointer-events:none;z-index:0;animation:ai-drift-b 26s ease-in-out infinite;}
 @keyframes ai-drift-a{0%,100%{opacity:.75;transform:translate(0,0) scale(1);}50%{opacity:1;transform:translate(-3%,2%) scale(1.08);}}
 @keyframes ai-drift-b{0%,100%{opacity:.7;transform:translate(0,0) scale(1);}50%{opacity:1;transform:translate(3%,-2%) scale(1.1);}}
-@media(prefers-reduced-motion:reduce){.term-hero::before,.term-hero::after{animation:none;}}
-.term-bar{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:28px;position:relative;z-index:1;}
-.term-badge{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--cerulean-text);margin-bottom:24px;position:relative;z-index:1;}
-.term-badge-dot{width:5px;height:5px;background:var(--cerulean);border-radius:50%;animation:pulse 2.5s ease-in-out infinite;}
-.term-h1{font-family:'Space Mono',monospace;font-size:clamp(30px,5vw,64px);color:var(--cerulean);letter-spacing:0;line-height:1.05;margin-bottom:8px;position:relative;z-index:1;}
-.term-h1::before{content:'> ';color:var(--cerulean);}
-.term-sub{font-family:'Space Mono',monospace;font-size:11px;color:var(--tb-heading-color);letter-spacing:.18em;opacity:.75;margin-bottom:32px;text-transform:uppercase;position:relative;z-index:1;}
-.term-desc{font-family:'Space Mono',monospace;font-size:13px;font-weight:400;color:var(--tb-body-color);opacity:.85;line-height:2;max-width:640px;margin-bottom:36px;position:relative;z-index:1;}
-.term-tags{display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:1;}
-.term-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--tb-heading-color);background:rgba(255,255,255,.6);border:1px solid rgba(141,199,195,.5);padding:6px 13px;}
 
-/* SPEC PANEL: stays on the same stable mint canvas as the rest of the page (no internal hard cuts) */
-.spec-section{padding:56px 64px;border-bottom:1px solid rgba(141,199,195,.3);}
-.spec-header{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid rgba(141,199,195,.3);}
-.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 64px;max-width:1100px;}
-.spec-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px dotted rgba(141,199,195,.25);padding-bottom:12px;}
-.sk{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.02em;color:var(--muted);}
-.sv{font-family:'Space Mono',monospace;font-size:10px;color:var(--tb-heading-color);text-align:right;}
-.sv-c{font-family:'Space Mono',monospace;font-size:10px;color:var(--cerulean-text);text-align:right;}
+/* ENTRANCE: liquid gradient atmosphere behind the hero window only; rest of the page stays on the calm glass canvas */
+.entrance{position:relative;padding:calc(var(--tb-pad-scale) * 90px) 64px calc(var(--tb-pad-scale) * 80px);overflow:hidden;background:radial-gradient(ellipse at 30% 10%, var(--glass) 0%, var(--celadon) 42%, var(--cerulean) 68%, #186384 100%);}
+.entrance .streak{position:absolute;border-radius:50%;filter:blur(16px);opacity:.4;pointer-events:none;z-index:0;}
+.entrance .streak-a{width:1200px;height:70px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent);top:6%;left:-18%;transform:rotate(-13deg);}
+.entrance .streak-b{width:820px;height:46px;background:linear-gradient(90deg,transparent,rgba(235,255,246,.75),transparent);bottom:8%;right:-12%;transform:rotate(10deg);}
+@media(prefers-reduced-motion:reduce){.entrance .streak{animation:none;}}
+.page-wrap{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+section.reveal{padding:64px 64px;}
+
+/* WINDOW SYSTEM: shared hard-chrome window + taskbar, matching the homepage AI section */
+.win{background:var(--glass);border:2px solid var(--ink);box-shadow:6px 6px 0 rgba(16,20,24,.28);}
+.win-titlebar{background:linear-gradient(90deg,#186384 0%,var(--cerulean) 55%,var(--celadon) 100%);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--ink);}
+.win-titletext{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#fff;letter-spacing:.08em;}
+.win-ctl{display:flex;gap:4px;}
+.win-ctl span{width:17px;height:15px;background:var(--glass);border:1px solid var(--ink);border-top-color:#fff;border-left-color:#fff;font-family:'Space Mono',monospace;font-size:10px;line-height:13px;text-align:center;color:var(--ink);display:block;}
+.win-body{padding:48px 56px;position:relative;z-index:1;}
+.win-taskbar{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--celadon);border-top:2px solid var(--ink);padding:18px 40px;}
+
+.term-bar{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:24px;}
+.term-badge{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cerulean-text);margin-bottom:24px;}
+.term-badge-dot{width:5px;height:5px;background:var(--cerulean);border-radius:50%;animation:pulse 2.5s ease-in-out infinite;}
+.term-h1{font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(34px,4.4vw,58px);color:var(--ink);text-shadow:3px 3px 0 var(--celadon);letter-spacing:0;line-height:1.15;margin-bottom:12px;}
+.term-sub{font-family:'Space Mono',monospace;font-size:11px;color:var(--tb-heading-color);letter-spacing:.18em;opacity:.75;margin-bottom:32px;text-transform:uppercase;}
+.term-desc{font-family:'Space Mono',monospace;font-size:14px;font-weight:400;color:var(--tb-body-color);opacity:.85;line-height:1.9;max-width:640px;}
+.term-tags{display:flex;flex-wrap:wrap;gap:10px;}
+.term-tag{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);background:var(--glass);border:2px solid var(--ink);border-top-color:#fff;border-left-color:#fff;box-shadow:2px 2px 0 rgba(16,20,24,.35);padding:8px 14px;}
+
+/* SPEC PANEL */
+.spec-header{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid rgba(141,199,195,.35);}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 64px;}
+.spec-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px dotted rgba(141,199,195,.3);padding-bottom:12px;}
+.sk{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.02em;color:var(--muted);}
+.sv{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--tb-heading-color);text-align:right;}
+.sv-c{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--cerulean-text);text-align:right;}
 .spec-cursor{display:inline-block;width:5px;height:11px;background:var(--cerulean);opacity:.9;vertical-align:middle;margin-left:2px;animation:blink .8s step-end infinite;}
 
 /* CAPABILITY RECORDS */
-.records-section{padding:calc(var(--tb-pad-scale) * 60px) 64px;border-bottom:1px solid rgba(141,199,195,.3);}
-.records-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:32px;}
-.record{padding:28px 0;border-top:1px solid rgba(141,199,195,.25);display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:start;}
-.record:first-of-type{border-top:none;}
+.records-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:32px;}
+.record{padding:24px 0;border-top:1px solid rgba(141,199,195,.3);display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:start;}
+.record:first-of-type{border-top:none;padding-top:0;}
+.record:last-of-type{padding-bottom:0;}
 .record-title{font-family:'Space Mono',monospace;font-size:14px;color:var(--tb-heading-color);letter-spacing:.02em;}
 .record-title::before{content:'$ ';color:var(--cerulean);}
-.record-desc{font-family:'Space Mono',monospace;font-size:12px;color:var(--tb-body-color);opacity:.85;line-height:1.9;font-weight:400;}
+.record-desc{font-family:'Space Mono',monospace;font-size:13.5px;color:var(--tb-body-color);opacity:.85;line-height:1.85;font-weight:400;}
 
-/* HISTORY TIMELINE: continuous prose, Jet Aviation format, set in the terminal typeface */
-.history-section{padding:calc(var(--tb-pad-scale) * 60px) 64px;border-bottom:1px solid rgba(141,199,195,.3);}
-.history-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:36px;}
-.history-prose{font-family:'Space Mono',monospace;font-size:clamp(13px,1.3vw,16px);font-weight:400;color:var(--tb-heading-color);line-height:2.1;max-width:1100px;}
-.history-prose sup{font-family:'Space Mono',monospace;font-size:9px;font-weight:400;color:var(--cerulean-text);vertical-align:super;margin-left:2px;}
+/* HISTORY TIMELINE */
+.history-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:32px;}
+.history-prose{font-family:'Space Mono',monospace;font-size:clamp(13px,1.3vw,16px);font-weight:400;color:var(--tb-heading-color);line-height:2.1;}
+.history-prose sup{font-family:'Space Mono',monospace;font-size:10px;font-weight:400;color:var(--cerulean-text);vertical-align:super;margin-left:2px;}
 .history-slash{color:var(--muted);margin:0 12px;}
+.type-cursor{display:inline-block;width:9px;height:1em;background:var(--cerulean);vertical-align:text-bottom;margin-left:1px;animation:blink .8s step-end infinite;}
 
 /* CTA */
-.cta-section{padding:calc(var(--tb-pad-scale) * 90px) 64px;text-align:left;}
 .cta-h2{font-family:'Space Mono',monospace;font-size:clamp(22px,3.4vw,38px);color:var(--tb-heading-color);letter-spacing:0;line-height:1.3;margin-bottom:28px;max-width:700px;}
 .cta-h2 .accent{color:var(--cerulean);}
-.cta-p{font-family:'Space Mono',monospace;font-size:12px;color:var(--tb-body-color);opacity:.8;line-height:1.9;margin-bottom:36px;max-width:520px;}
-.cta-row{display:flex;gap:14px;}
-.btn-term{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:var(--cerulean);color:#fff;border:none;padding:15px 28px;cursor:pointer;text-decoration:none;display:inline-block;}
-.btn-term:hover{background:var(--tb-heading-color);}
-.btn-term-o{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;background:transparent;color:var(--cerulean-text);border:1px solid rgba(37,150,190,.4);padding:15px 28px;cursor:pointer;text-decoration:none;display:inline-block;}
-.btn-term-o:hover{border-color:var(--cerulean);color:var(--tb-heading-color);}
+.cta-p{font-family:'Space Mono',monospace;font-size:14px;color:var(--tb-body-color);opacity:.8;line-height:1.85;margin-bottom:36px;max-width:520px;}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-term{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--ink);color:#fff;border:2px solid var(--ink);box-shadow:2px 2px 0 rgba(37,150,190,.5);padding:13px 26px;cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap;transition:transform .3s var(--out);}
+.btn-term:hover{transform:scale(1.06);}
+.btn-term:active{box-shadow:none;transform:translate(2px,2px) scale(1);}
+.btn-term-o{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--glass);color:var(--ink);border:2px solid var(--ink);border-top-color:#fff;border-left-color:#fff;box-shadow:2px 2px 0 rgba(16,20,24,.35);padding:13px 26px;cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap;transition:transform .3s var(--out);}
+.btn-term-o:hover{transform:scale(1.06);}
+.btn-term-o:active{box-shadow:none;transform:translate(2px,2px) scale(1);}
 
 /* FOOTER: stays in the same mint world, no hard cut back to black */
 footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:space-between;background:var(--glass);border-top:1px solid rgba(141,199,195,.3);}
@@ -136,7 +149,9 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
   nav{padding:24px 24px;}
   .nl{display:none;}
   .section-nav{display:none;}
-  .term-hero,.spec-section,.records-section,.history-section,.cta-section{padding:40px 24px;}
+  .entrance,section.reveal{padding:40px 24px;}
+  .win-body{padding:32px 28px;}
+  .win-taskbar{padding:16px 24px;}
   .spec-grid{grid-template-columns:1fr;}
   .record{grid-template-columns:1fr;gap:8px;}
 }
@@ -169,84 +184,118 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
   <a href="#start" data-target="start">Start</a>
 </div>
 
-<section class="term-hero" id="overview">
-  <div class="term-bar">// wingspan_ai_transformation.sys: service 04</div>
-  <div class="term-badge"><span class="term-badge-dot"></span>High Efficiency</div>
-  <div class="term-h1">AI TRANSFORMATION</div>
-  <div class="term-sub">Big-Tech AI Practices, Built for Efficiency</div>
-  <p class="term-desc">The same predictive lead scoring, automated nurture, and AI-assisted content systems that power the biggest tech and enterprise sales teams, built for the scale of a business aviation company, and focused on one outcome: efficiency. We start with the workflow costing your team the most time, usually lead response or content production, and make it faster within weeks. No platform overhaul required to get there.</p>
-  <div class="term-tags">
-    <span class="term-tag">Predictive Scoring</span>
-    <span class="term-tag">Automated Nurture</span>
-    <span class="term-tag">AI Content</span>
-    <span class="term-tag">Efficiency</span>
-    <span class="term-tag">CRM Intelligence Layer</span>
+<section class="entrance" id="overview">
+  <div class="streak streak-a"></div>
+  <div class="streak streak-b"></div>
+  <div class="page-wrap">
+    <div class="win">
+      <div class="win-titlebar">
+        <span class="win-titletext">AI_TRANSFORMATION.SYS</span>
+        <div class="win-ctl"><span>_</span><span>□</span><span>X</span></div>
+      </div>
+      <div class="win-body">
+        <div class="term-bar">// wingspan_ai_transformation.sys: service 04</div>
+        <div class="term-badge"><span class="term-badge-dot"></span>High Efficiency</div>
+        <div class="term-h1">AI TRANSFORMATION</div>
+        <div class="term-sub">Big-Tech AI Practices, Built for Efficiency</div>
+        <p class="term-desc">The same predictive lead scoring, automated nurture, and AI-assisted content systems that power the biggest tech and enterprise sales teams, built for the scale of a business aviation company, and focused on one outcome: efficiency. We start with the workflow costing your team the most time, usually lead response or content production, and make it faster within weeks. No platform overhaul required to get there.</p>
+      </div>
+      <div class="win-taskbar">
+        <div class="term-tags">
+          <span class="term-tag">Predictive Scoring</span>
+          <span class="term-tag">Automated Nurture</span>
+          <span class="term-tag">AI Content</span>
+          <span class="term-tag">Efficiency</span>
+          <span class="term-tag">CRM Intelligence Layer</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="spec-section reveal" id="how-it-works">
-  <div class="spec-header">// WINGSPAN_AI_TRANSFORMATION.sys: spec</div>
-  <div class="spec-grid">
-    <div class="spec-row"><span class="sk">SERVICE</span><span class="sv">AI Applied to Marketing &amp; Sales</span></div>
-    <div class="spec-row"><span class="sk">FOCUS</span><span class="sv-c">EFFICIENCY</span></div>
-    <div class="spec-row"><span class="sk">SECTOR</span><span class="sv">Aviation · Part 135 · MRO · FBO</span></div>
-    <div class="spec-row"><span class="sk">LEAD_SCORE_SYS</span><span class="sv">Predictive · trained on your deal data</span></div>
-    <div class="spec-row"><span class="sk">SALES_INTEL</span><span class="sv">Real-time · Competitor signals</span></div>
-    <div class="spec-row"><span class="sk">AUTOMATION</span><span class="sv">Outreach · Nurture · Re-engage</span></div>
-    <div class="spec-row"><span class="sk">CONTENT_SYS</span><span class="sv">AI-generated · Brand-calibrated</span></div>
-    <div class="spec-row"><span class="sk">CRM_LAYER</span><span class="sv">Intelligence overlay · Next-best-action</span></div>
-    <div class="spec-row"><span class="sk">TIMELINE</span><span class="sv">First result in 6–8 wks</span></div>
-    <div class="spec-row"><span class="sk">STATUS</span><span class="sv-c">ACCEPTING NEW CLIENTS<span class="spec-cursor"></span></span></div>
+<section class="reveal" id="how-it-works">
+  <div class="page-wrap">
+    <div class="win">
+      <div class="win-titlebar">
+        <span class="win-titletext">SYSTEM_STATUS.SYS</span>
+        <div class="win-ctl"><span>_</span><span>□</span><span>X</span></div>
+      </div>
+      <div class="win-body">
+        <div class="spec-header">// WINGSPAN_AI_TRANSFORMATION.sys: spec</div>
+        <div class="spec-grid">
+          <div class="spec-row"><span class="sk">SERVICE</span><span class="sv">AI Applied to Marketing &amp; Sales</span></div>
+          <div class="spec-row"><span class="sk">FOCUS</span><span class="sv-c">EFFICIENCY</span></div>
+          <div class="spec-row"><span class="sk">SECTOR</span><span class="sv">Aviation · Part 135 · MRO · FBO</span></div>
+          <div class="spec-row"><span class="sk">LEAD_SCORE_SYS</span><span class="sv">Predictive · trained on your deal data</span></div>
+          <div class="spec-row"><span class="sk">SALES_INTEL</span><span class="sv">Real-time · Competitor signals</span></div>
+          <div class="spec-row"><span class="sk">AUTOMATION</span><span class="sv">Outreach · Nurture · Re-engage</span></div>
+          <div class="spec-row"><span class="sk">CONTENT_SYS</span><span class="sv">AI-generated · Brand-calibrated</span></div>
+          <div class="spec-row"><span class="sk">CRM_LAYER</span><span class="sv">Intelligence overlay · Next-best-action</span></div>
+          <div class="spec-row"><span class="sk">TIMELINE</span><span class="sv">First result in 6–8 wks</span></div>
+          <div class="spec-row"><span class="sk">STATUS</span><span class="sv-c">ACCEPTING NEW CLIENTS<span class="spec-cursor"></span></span></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="records-section reveal" id="capabilities">
-  <div class="records-label">// capability records</div>
-  <div class="record">
-    <div class="record-title">predictive_scoring</div>
-    <div class="record-desc">Machine-learned models that rank inbound leads by likelihood to close, trained on your own historical deal data instead of generic industry assumptions.</div>
-  </div>
-  <div class="record">
-    <div class="record-title">sales_intelligence</div>
-    <div class="record-desc">Real-time signals on competitor activity, account behavior, and buying intent, surfaced directly inside the tools your sales team already uses.</div>
-  </div>
-  <div class="record">
-    <div class="record-title">automation</div>
-    <div class="record-desc">Outreach, nurture, and re-engagement sequences that run continuously in the background, so no lead goes cold from a full inbox.</div>
-  </div>
-  <div class="record">
-    <div class="record-title">content_at_scale</div>
-    <div class="record-desc">AI-generated, brand-calibrated content production: proposals, follow-ups, campaign copy, reviewed and directed by people and produced at machine speed.</div>
-  </div>
-  <div class="record">
-    <div class="record-title">crm_intelligence_layer</div>
-    <div class="record-desc">An intelligence layer over your existing CRM that surfaces the next-best-action for every open deal, instead of leaving prioritization to memory.</div>
-  </div>
-</section>
-
-<section class="history-section reveal" id="timeline">
-  <div class="history-label">// brief history of AI in marketing</div>
-  <div class="history-prose">
-    Amazon deploys one of the first AI-driven recommendation engines at commercial scale<sup>1998</sup>
-    <span class="history-slash">/</span>
-    IBM Watson beats human champions on Jeopardy!, the first mainstream demonstration of AI reasoning<sup>2011</sup>
-    <span class="history-slash">/</span>
-    Garmin Autoland receives FAA certification on the Piper M600, the first general aviation autoland system certified to operate with no pilot input<sup>2020</sup>
-    <span class="history-slash">/</span>
-    Apple's App Tracking Transparency update ends default third-party ad tracking, forcing a shift to first-party data and AI-driven modeling<sup>2021</sup>
-    <span class="history-slash">/</span>
-    ChatGPT launches, bringing generative AI into everyday content and email marketing<sup>2022</sup>
-    <span class="history-slash">/</span>
-    NATA and Embry-Riddle launch the first AI Symposium for Business Aviation<sup>2026</sup>
+<section class="reveal" id="capabilities">
+  <div class="page-wrap">
+    <div class="win">
+      <div class="win-titlebar">
+        <span class="win-titletext">CAPABILITIES.SYS</span>
+        <div class="win-ctl"><span>_</span><span>□</span><span>X</span></div>
+      </div>
+      <div class="win-body">
+        <div class="records-label">// capability records</div>
+        <div class="record">
+          <div class="record-title">predictive_scoring</div>
+          <div class="record-desc">Machine-learned models that rank inbound leads by likelihood to close, trained on your own historical deal data instead of generic industry assumptions.</div>
+        </div>
+        <div class="record">
+          <div class="record-title">sales_intelligence</div>
+          <div class="record-desc">Real-time signals on competitor activity, account behavior, and buying intent, surfaced directly inside the tools your sales team already uses.</div>
+        </div>
+        <div class="record">
+          <div class="record-title">automation</div>
+          <div class="record-desc">Outreach, nurture, and re-engagement sequences that run continuously in the background, so no lead goes cold from a full inbox.</div>
+        </div>
+        <div class="record">
+          <div class="record-title">content_at_scale</div>
+          <div class="record-desc">AI-generated, brand-calibrated content production: proposals, follow-ups, campaign copy, reviewed and directed by people and produced at machine speed.</div>
+        </div>
+        <div class="record">
+          <div class="record-title">crm_intelligence_layer</div>
+          <div class="record-desc">An intelligence layer over your existing CRM that surfaces the next-best-action for every open deal, instead of leaving prioritization to memory.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="cta-section reveal" id="start">
-  <div class="cta-h2">AI, built into <span class="accent">how you actually sell.</span></div>
-  <p class="cta-p">6–8 week deployment. Retainer available. Let's talk about what AI transformation looks like inside your marketing and sales operation.</p>
-  <div class="cta-row">
-    <a class="btn-term" href="contact.html">$ contact --start</a>
-    <a class="btn-term-o" href="index.html">Back to Home</a>
+<section class="reveal" id="timeline">
+  <div class="page-wrap">
+    <div class="history-label">// brief history of AI in marketing</div>
+    <div class="history-prose" id="history-typer" aria-label="Brief history of AI in marketing"></div>
+  </div>
+</section>
+
+<section class="reveal" id="start">
+  <div class="page-wrap">
+    <div class="win">
+      <div class="win-titlebar">
+        <span class="win-titletext">START.EXE</span>
+        <div class="win-ctl"><span>_</span><span>□</span><span>X</span></div>
+      </div>
+      <div class="win-body">
+        <div class="cta-h2">AI, built into <span class="accent">how you actually sell.</span></div>
+        <p class="cta-p">6–8 week deployment. Retainer available. Let's talk about what AI transformation looks like inside your marketing and sales operation.</p>
+        <div class="cta-row">
+          <a class="btn-term" href="contact.html">$ contact --start</a>
+          <a class="btn-term-o" href="index.html">Back to Home</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -290,6 +339,71 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
   window.addEventListener('resize', positionSectionNav);
   positionSectionNav();
   updateSectionNav();
+</script>
+<script>
+  (function(){
+    var container = document.getElementById('history-typer');
+    if(!container) return;
+    var entries = [
+      {text:"Amazon deploys one of the first AI-driven recommendation engines at commercial scale", year:"1998"},
+      {text:"IBM Watson beats human champions on Jeopardy!, the first mainstream demonstration of AI reasoning", year:"2011"},
+      {text:"Garmin Autoland receives FAA certification on the Piper M600, the first general aviation autoland system certified to operate with no pilot input", year:"2020"},
+      {text:"Apple's App Tracking Transparency update ends default third-party ad tracking, forcing a shift to first-party data and AI-driven modeling", year:"2021"},
+      {text:"ChatGPT launches, bringing generative AI into everyday content and email marketing", year:"2022"},
+      {text:"NATA and Embry-Riddle launch the first AI Symposium for Business Aviation", year:"2026"}
+    ];
+
+    function renderFull(){
+      container.innerHTML = entries.map(function(e,i){
+        return e.text + '<sup>' + e.year + '</sup>' + (i < entries.length-1 ? ' <span class="history-slash">/</span> ' : '');
+      }).join('');
+    }
+
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ renderFull(); return; }
+
+    var started = false;
+    function typeAll(){
+      if(started) return;
+      started = true;
+      var cursor = document.createElement('span');
+      cursor.className = 'type-cursor';
+      container.appendChild(cursor);
+      var ei = 0, ci = 0;
+      var textNode = document.createTextNode('');
+      container.insertBefore(textNode, cursor);
+
+      function step(){
+        if(ei >= entries.length){ cursor.remove(); return; }
+        var entry = entries[ei];
+        if(ci < entry.text.length){
+          textNode.textContent += entry.text.charAt(ci);
+          ci++;
+          setTimeout(step, 12 + Math.random()*24);
+        } else {
+          var sup = document.createElement('sup');
+          sup.textContent = entry.year;
+          container.insertBefore(sup, cursor);
+          ei++;
+          ci = 0;
+          if(ei < entries.length){
+            var sep = document.createElement('span');
+            sep.className = 'history-slash';
+            sep.textContent = ' / ';
+            container.insertBefore(sep, cursor);
+            textNode = document.createTextNode('');
+            container.insertBefore(textNode, cursor);
+          }
+          setTimeout(step, 260);
+        }
+      }
+      step();
+    }
+
+    var typeIo = new IntersectionObserver(function(list){
+      list.forEach(function(en){ if(en.isIntersecting){ typeAll(); typeIo.disconnect(); } });
+    }, {threshold:.2});
+    typeIo.observe(container);
+  })();
 </script>
 </body>
 </html>
