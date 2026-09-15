@@ -58,40 +58,43 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .nav-cta{font-family:'Archivo',sans-serif;font-size:12px;font-weight:400;background:none;color:var(--ink);border:1px solid var(--ink);padding:9px 20px;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap;}
 .nav-cta:hover{background:var(--ink);color:#fff;}
 
-/* SECTION NAV: wayfinding strip for the long-form page below the hero */
-.section-nav{position:sticky;top:0;z-index:90;display:flex;justify-content:flex-end;gap:36px;padding:18px 64px;background:rgba(235,255,246,.88);backdrop-filter:blur(8px);border-bottom:1px solid rgba(141,199,195,.35);opacity:0;transform:translateY(-100%);transition:opacity .3s var(--out),transform .3s var(--out);pointer-events:none;}
-.section-nav.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
-.section-nav a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent;white-space:nowrap;}
-.section-nav a:hover{color:var(--tb-heading-color);}
-.section-nav a.active{color:var(--cerulean-text);border-bottom-color:var(--cerulean);}
-
-/* ENTRANCE + section atmosphere: plain white canvas, dotted grid fades in/out around each window */
-.entrance{position:relative;overflow:hidden;padding:calc(var(--tb-pad-scale) * 90px) 64px calc(var(--tb-pad-scale) * 80px);}
-.sec-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(141,199,195,.55) 1px, transparent 1px);background-size:28px 28px;pointer-events:none;mask-image:linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%);-webkit-mask-image:linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%);}
+/* STAGE: plain white canvas, dotted grid fades in/out around the window */
+.stage{position:relative;padding:calc(var(--tb-pad-scale) * 70px) 64px calc(var(--tb-pad-scale) * 90px);}
+.sec-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(141,199,195,.55) 1px, transparent 1px);background-size:28px 28px;pointer-events:none;mask-image:linear-gradient(180deg, transparent 0%, black 8%, black 92%, transparent 100%);-webkit-mask-image:linear-gradient(180deg, transparent 0%, black 8%, black 92%, transparent 100%);}
 .page-wrap{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
-section.reveal{position:relative;overflow:hidden;padding:64px 64px;}
 
-/* WINDOW SYSTEM: shared hard-chrome window + taskbar, matching the homepage AI section */
+/* WINDOW SYSTEM */
 .win{background:var(--glass);border:2px solid var(--ink);box-shadow:6px 6px 0 rgba(16,20,24,.28);}
 .win-titlebar{background:linear-gradient(90deg,#186384 0%,var(--cerulean) 55%,var(--celadon) 100%);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--ink);}
 .win-titletext{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#fff;letter-spacing:.08em;}
 .win-ctl{display:flex;gap:4px;}
 .win-ctl span{width:17px;height:15px;background:var(--glass);border:1px solid var(--ink);border-top-color:#fff;border-left-color:#fff;font-family:'Space Mono',monospace;font-size:10px;line-height:13px;text-align:center;color:var(--ink);display:block;}
-.win-body{padding:48px 56px;position:relative;z-index:1;}
-.win-taskbar{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--celadon);border-top:2px solid var(--ink);padding:18px 40px;}
 
-.term-bar{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:24px;}
+/* TAB STRIP: sticks just below the site nav; replaces the old floating section-nav entirely */
+.tabstrip{position:sticky;top:0;z-index:20;display:flex;background:#c9dfda;border-bottom:2px solid var(--ink);padding:10px 14px 0;gap:4px;overflow-x:auto;}
+.tab{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:#b6d2cc;border:2px solid var(--ink);border-bottom:none;border-top-color:#fff;border-left-color:#fff;padding:9px 16px;cursor:pointer;position:relative;top:2px;white-space:nowrap;transition:transform .25s var(--out);overflow:hidden;}
+.tab.active{background:var(--glass);color:var(--ink);font-weight:700;top:0;padding-top:11px;}
+.tab.pulse{transform:scale(1.1);z-index:2;box-shadow:0 4px 14px rgba(37,150,190,.4);}
+.tab::after{content:'';position:absolute;top:-60%;left:-70%;width:35%;height:220%;background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.9) 50%,transparent 100%);transform:translateX(-40%);opacity:0;pointer-events:none;}
+.tab.pulse::after{animation:tab-shine .7s ease-out;}
+@keyframes tab-shine{0%{transform:translateX(-40%);opacity:0;}12%{opacity:1;}100%{transform:translateX(420%);opacity:0;}}
+@media(prefers-reduced-motion: reduce){.tab.pulse::after{animation:none;}}
+.tab:focus-visible{outline:2px solid var(--cerulean);outline-offset:2px;}
+
+.win-body{padding:56px;position:relative;z-index:1;}
+.pane + .pane{border-top:2px dashed rgba(37,150,190,.4);}
+
 .term-badge{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cerulean-text);margin-bottom:24px;}
 .term-badge-dot{width:5px;height:5px;background:var(--cerulean);border-radius:50%;animation:pulse 2.5s ease-in-out infinite;}
 .term-h1{font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(34px,4.4vw,58px);color:var(--ink);text-shadow:3px 3px 0 var(--celadon);letter-spacing:0;line-height:1.15;margin-bottom:12px;}
 .term-sub{font-family:'Space Mono',monospace;font-size:11px;color:var(--tb-heading-color);letter-spacing:.18em;opacity:.75;margin-bottom:32px;text-transform:uppercase;}
-.term-desc{font-family:'Space Mono',monospace;font-size:14px;font-weight:400;color:var(--tb-body-color);opacity:.85;line-height:1.9;max-width:640px;}
+.term-desc{font-family:'Space Mono',monospace;font-size:14px;font-weight:400;color:var(--tb-body-color);opacity:.85;line-height:1.9;max-width:640px;margin-bottom:32px;}
 .term-tags{display:flex;flex-wrap:wrap;gap:10px;}
 .term-tag{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,var(--cerulean),#186384);border:2px outset var(--celadon);padding:9px 15px;}
 
 /* SPEC PANEL */
 .spec-header{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:24px;padding-bottom:14px;border-bottom:2px dashed var(--cerulean);}
-.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 64px;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 64px;max-width:760px;}
 .spec-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px dotted rgba(141,199,195,.3);padding-bottom:12px;}
 .sk{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.02em;color:var(--muted);}
 .sv{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--tb-heading-color);text-align:right;}
@@ -100,9 +103,9 @@ section.reveal{position:relative;overflow:hidden;padding:64px 64px;}
 
 /* CAPABILITY RECORDS */
 .records-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--cerulean-text);text-transform:uppercase;margin-bottom:32px;}
-.record{padding:24px 0;border-top:1px solid rgba(141,199,195,.3);display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:start;}
-.record:first-of-type{border-top:none;padding-top:0;}
-.record:last-of-type{padding-bottom:0;}
+.record{padding:20px 16px;display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:start;transition:background .15s var(--out);}
+.record:nth-of-type(odd){background:rgba(141,199,195,.12);}
+.record:hover{background:rgba(37,150,190,.14);}
 .record-title{font-family:'Space Mono',monospace;font-size:14px;color:var(--tb-heading-color);letter-spacing:.02em;}
 .record-title::before{content:'$ ';color:var(--cerulean);}
 .record-desc{font-family:'Space Mono',monospace;font-size:13.5px;color:var(--tb-body-color);opacity:.85;line-height:1.85;font-weight:400;}
@@ -115,10 +118,11 @@ section.reveal{position:relative;overflow:hidden;padding:64px 64px;}
 .type-cursor{display:inline-block;width:9px;height:1em;background:var(--cerulean);vertical-align:text-bottom;margin-left:1px;animation:blink .8s step-end infinite;}
 
 /* CTA */
-.cta-h2{font-family:'Space Mono',monospace;font-size:clamp(22px,3.4vw,38px);color:var(--tb-heading-color);letter-spacing:0;line-height:1.3;margin-bottom:28px;max-width:700px;}
+.pane-start{text-align:center;}
+.cta-h2{font-family:'Space Mono',monospace;font-size:clamp(22px,3.4vw,38px);color:var(--tb-heading-color);letter-spacing:0;line-height:1.3;margin-bottom:28px;max-width:700px;margin-left:auto;margin-right:auto;}
 .cta-h2 .accent{color:var(--cerulean);}
-.cta-p{font-family:'Space Mono',monospace;font-size:14px;color:var(--tb-body-color);opacity:.8;line-height:1.85;margin-bottom:36px;max-width:520px;}
-.cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+.cta-p{font-family:'Space Mono',monospace;font-size:14px;color:var(--tb-body-color);opacity:.8;line-height:1.85;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
 .btn-term{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--ink);color:#fff;border:2px solid var(--ink);box-shadow:2px 2px 0 rgba(37,150,190,.5);padding:13px 26px;cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap;transition:transform .3s var(--out);}
 .btn-term:hover{transform:scale(1.06);}
 .btn-term:active{box-shadow:none;transform:translate(2px,2px) scale(1);}
@@ -142,12 +146,15 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
 @media(max-width:900px){
   nav{padding:24px 24px;}
   .nl{display:none;}
-  .section-nav{display:none;}
-  .entrance,section.reveal{padding:40px 24px;}
+  .stage{padding:40px 24px;}
   .win-body{padding:32px 28px;}
-  .win-taskbar{padding:16px 24px;}
   .spec-grid{grid-template-columns:1fr;}
   .record{grid-template-columns:1fr;gap:8px;}
+  .tabstrip{padding:8px 10px 0;}
+  .tab{padding:8px 12px;font-size:9px;}
+}
+@media(prefers-reduced-motion: reduce){
+  .tab{transition:none;}
 }
 </style>
 </head>
@@ -170,15 +177,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
   </div>
 </nav>
 
-<div class="section-nav" id="section-nav">
-  <a href="#overview" data-target="overview">Overview</a>
-  <a href="#how-it-works" data-target="how-it-works">How It Works</a>
-  <a href="#capabilities" data-target="capabilities">Capabilities</a>
-  <a href="#timeline" data-target="timeline">Timeline</a>
-  <a href="#start" data-target="start">Start</a>
-</div>
-
-<section class="entrance" id="overview">
+<div class="stage">
   <div class="sec-grid"></div>
   <div class="page-wrap">
     <div class="win">
@@ -186,14 +185,19 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
         <span class="win-titletext">AI_TRANSFORMATION.SYS</span>
         <div class="win-ctl"><span>_</span><span>□</span><span>X</span></div>
       </div>
-      <div class="win-body">
-        <div class="term-bar">// wingspan_ai_transformation.sys: service 04</div>
+      <div class="tabstrip" id="tabstrip">
+        <button type="button" class="tab active" data-pane="overview">Overview</button>
+        <button type="button" class="tab" data-pane="how-it-works">How It Works</button>
+        <button type="button" class="tab" data-pane="capabilities">Capabilities</button>
+        <button type="button" class="tab" data-pane="timeline">Timeline</button>
+        <button type="button" class="tab" data-pane="start">Start</button>
+      </div>
+
+      <div class="win-body pane reveal" data-pane="overview">
         <div class="term-badge"><span class="term-badge-dot"></span>High Efficiency</div>
         <div class="term-h1">AI TRANSFORMATION</div>
         <div class="term-sub">Big-Tech AI Practices, Built for Efficiency</div>
         <p class="term-desc">The same predictive lead scoring, automated nurture, and AI-assisted content systems that power the biggest tech and enterprise sales teams, built for the scale of a business aviation company, and focused on one outcome: efficiency. We start with the workflow costing your team the most time, usually lead response or content production, and make it faster within weeks. No platform overhaul required to get there.</p>
-      </div>
-      <div class="win-taskbar">
         <div class="term-tags">
           <span class="term-tag">Predictive Scoring</span>
           <span class="term-tag">Automated Nurture</span>
@@ -202,19 +206,8 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
           <span class="term-tag">CRM Intelligence Layer</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<section class="reveal" id="how-it-works">
-  <div class="sec-grid"></div>
-  <div class="page-wrap">
-    <div class="win">
-      <div class="win-titlebar">
-        <span class="win-titletext">SYSTEM_STATUS.SYS</span>
-        <div class="win-ctl"><span>_</span><span>□</span><span>X</span></div>
-      </div>
-      <div class="win-body">
+      <div class="win-body pane reveal" data-pane="how-it-works">
         <div class="spec-header">// WINGSPAN_AI_TRANSFORMATION.sys: spec</div>
         <div class="spec-grid">
           <div class="spec-row"><span class="sk">SERVICE</span><span class="sv">AI Applied to Marketing &amp; Sales</span></div>
@@ -229,19 +222,8 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
           <div class="spec-row"><span class="sk">STATUS</span><span class="sv-c">ACCEPTING NEW CLIENTS<span class="spec-cursor"></span></span></div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<section class="reveal" id="capabilities">
-  <div class="sec-grid"></div>
-  <div class="page-wrap">
-    <div class="win">
-      <div class="win-titlebar">
-        <span class="win-titletext">CAPABILITIES.SYS</span>
-        <div class="win-ctl"><span>_</span><span>□</span><span>X</span></div>
-      </div>
-      <div class="win-body">
+      <div class="win-body pane reveal" data-pane="capabilities">
         <div class="records-label">// capability records</div>
         <div class="record">
           <div class="record-title">predictive_scoring</div>
@@ -264,26 +246,13 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
           <div class="record-desc">An intelligence layer over your existing CRM that surfaces the next-best-action for every open deal, instead of leaving prioritization to memory.</div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<section class="reveal" id="timeline">
-  <div class="page-wrap">
-    <div class="history-label">// brief history of AI in marketing</div>
-    <div class="history-prose" id="history-typer" aria-label="Brief history of AI in marketing"></div>
-  </div>
-</section>
-
-<section class="reveal" id="start">
-  <div class="sec-grid"></div>
-  <div class="page-wrap">
-    <div class="win">
-      <div class="win-titlebar">
-        <span class="win-titletext">START.EXE</span>
-        <div class="win-ctl"><span>_</span><span>□</span><span>X</span></div>
+      <div class="win-body pane reveal" data-pane="timeline">
+        <div class="history-label">// brief history of AI in marketing</div>
+        <div class="history-prose" id="history-typer" aria-label="Brief history of AI in marketing"></div>
       </div>
-      <div class="win-body">
+
+      <div class="win-body pane reveal pane-start" data-pane="start">
         <div class="cta-h2">AI, built into <span class="accent">how you actually sell.</span></div>
         <p class="cta-p">6–8 week deployment. Retainer available. Let's talk about what AI transformation looks like inside your marketing and sales operation.</p>
         <div class="cta-row">
@@ -293,7 +262,7 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <footer>
   <span class="fc">© 2026 Wingspan Aviation Consulting</span>
@@ -305,36 +274,48 @@ footer{padding:36px 64px 78px;display:flex;align-items:center;justify-content:sp
 </footer>
 
 <script>
+  // reveal-on-scroll for whichever panes are currently visible (Overview shows all of them)
   const io = new IntersectionObserver(entries => entries.forEach(e => {
     if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
   }), {threshold:.06});
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  document.querySelectorAll('.pane').forEach(el => io.observe(el));
 
-  const sectionNav = document.getElementById('section-nav');
+  // tab strip: sticks just under the site nav, and switches which panes are visible
   const mainNav = document.querySelector('nav');
-  const sectionIds = ['overview','how-it-works','capabilities','timeline','start'];
-  const navLinks = {};
-  sectionIds.forEach(id => { navLinks[id] = sectionNav.querySelector('[data-target="' + id + '"]'); });
+  const tabstrip = document.getElementById('tabstrip');
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  const panes = Array.from(document.querySelectorAll('.pane'));
 
-  function positionSectionNav(){ sectionNav.style.top = mainNav.offsetHeight + 'px'; }
-  function updateSectionNav(){
-    const heroEl = document.getElementById('overview');
-    sectionNav.classList.toggle('visible', heroEl.getBoundingClientRect().bottom < mainNav.offsetHeight);
-    const refLine = window.innerHeight * 0.35;
-    let current = sectionIds[0];
-    sectionIds.forEach(id => {
-      const el = document.getElementById(id);
-      if(el && el.getBoundingClientRect().top < refLine) current = id;
+  function positionTabstrip(){ tabstrip.style.top = mainNav.offsetHeight + 'px'; }
+  window.addEventListener('resize', positionTabstrip);
+  positionTabstrip();
+
+  function showPane(name){
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.pane === name));
+    panes.forEach(p => {
+      const visible = name === 'overview' || p.dataset.pane === name;
+      p.hidden = !visible;
+      if(visible){ p.classList.add('in'); io.unobserve(p); }
     });
-    Object.keys(navLinks).forEach(id => navLinks[id].classList.toggle('active', id === current));
   }
-  let navTicking = false;
-  window.addEventListener('scroll', () => {
-    if(!navTicking){ requestAnimationFrame(() => { updateSectionNav(); navTicking = false; }); navTicking = true; }
-  });
-  window.addEventListener('resize', positionSectionNav);
-  positionSectionNav();
-  updateSectionNav();
+  tabs.forEach(t => t.addEventListener('click', () => showPane(t.dataset.pane)));
+  showPane('overview');
+
+  // ambient cue: secondary tabs pulse one at a time, in order, forever
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const secondaryTabs = tabs.filter(t => t.dataset.pane !== 'overview');
+    let pulseIndex = 0;
+    function pulseNext(){
+      const el = secondaryTabs[pulseIndex % secondaryTabs.length];
+      el.classList.add('pulse');
+      setTimeout(() => {
+        el.classList.remove('pulse');
+        pulseIndex++;
+        setTimeout(pulseNext, 10000);
+      }, 600);
+    }
+    setTimeout(pulseNext, 3000);
+  }
 </script>
 <script>
   (function(){
